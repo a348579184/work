@@ -31,7 +31,7 @@ export default {
     },
 
     effects: {
-        //山东单点登录
+        //山东单点登录1
         *platformToken({payload,callback},{call,put}){
             let formData = new FormData()
             const {account,secret,parameterName} = payload
