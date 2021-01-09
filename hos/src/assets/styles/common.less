@@ -1,0 +1,890 @@
+@import 'vars.less';
+@import 'theme.less';
+@import 'compatibility.less';
+// @import 'color/colorPalette';
+// @blue-1: color(~`colorPalette('@{blue-6}', 1) `);
+// .ant-calendar-picker-clear, .ant-calendar-picker-icon{
+
+// }
+@mAIconHide : {
+  .m-a-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/mahide.png) no-repeat 0 0;
+  }
+}
+@mAIconShow : {
+  .m-a-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/mashow.png) no-repeat 0 0;
+  }
+}
+@tMIconHide : {
+  .t-m-icon{
+    height: 17px;
+    width: 16px;
+    background: url(../image/tmhide.png) no-repeat 0 0;
+  }
+}
+@tMIconShow : {
+  .t-m-icon{
+    height: 17px;
+    width: 16px;
+    background: url(../image/tmshow.png) no-repeat 0 0;
+  }
+}
+@dRIconShow : {
+  .d-r-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/drshow.png) no-repeat 0 0;
+  }
+}
+@dRIconHide : {
+  .d-r-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/drhide.png) no-repeat 0 0;
+  }
+}
+@sIconShow : {
+  .s-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/sshow.png) no-repeat 0 0;
+  }
+}
+@sIconHide : {
+  .s-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/shide.png) no-repeat 0 0;
+  }
+}
+@vIconShow : {
+  .v-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/vshow.png) no-repeat 0 0;
+  }
+}
+@vIconHide : {
+  .v-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/vhide.png) no-repeat 0 0;
+  }
+}
+@feeIconShow : {
+    .fee-icon{
+      height: 16px;
+      width: 16px;
+      background: url(../image/feeIconShow.svg) no-repeat 0 0;
+    }
+}
+@feeIconHide : {
+.fee-icon{
+    height: 16px;
+    width: 16px;
+    background: url(../image/feeIconHide.svg) no-repeat 0 0;
+    }
+}
+@drugIconShow : {
+    .drug-icon{
+      height: 16px;
+      width: 16px;
+      background: url(../image/drugIconShow.svg) no-repeat 0 0;
+    }
+}
+@drugIconHide : {
+    .drug-icon{
+        height: 16px;
+        width: 16px;
+        background: url(../image/drugIconHide.svg) no-repeat 0 0;
+    }
+}
+@sugIconShow : {
+    .sur-icon{
+      height: 16px;
+      width: 16px;
+      background: url(../image/sur-show.png) no-repeat 0 0;
+    }
+}
+@sugIconHide : {
+    .sur-icon{
+        height: 16px;
+        width: 16px;
+        background: url(../image/sur-hide.png) no-repeat 0 0;
+    }
+}
+
+// reset
+body {
+  min-width: 576px;
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+  //整体样式
+  width: 14px;
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  border: 5px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  //轨道样式
+  // box-shadow: 1px 1px 5px rgba(0, 0, 0, .2) inset;
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  //滑块样式
+  height: 20px;
+  background-clip: content-box;
+  box-shadow: 0 0 0 5px rgba(0, 0, 0, .2) inset;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+.bg-white {
+  background: #fff;
+}
+.bg-invalid{
+  background-color: rgb(238,238,238)!important;
+}
+.bg-select{
+  background:#11abda;
+  color:rgba(0,0,0,1);
+  &:hover{
+    background:#11abda!important;
+  }
+}
+
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.am-aside-flex0 {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+.tr-background-diabled {
+  background:rgba(0,0,0,0.1)
+}
+
+.cm-left {
+  float: left;
+}
+
+.cm-right {
+  float: right;
+}
+
+.condition-top {
+  position: relative;
+  z-index: 101;
+  background-color: #fff;
+  box-shadow: @shadow-2;
+  padding: @panel-padding-vertical @panel-padding-horizontal;
+  .right {
+    position: absolute;
+    right: 16px;
+    top: 10px;
+  }
+}
+.clearfix {
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &::after {
+    clear: both;
+  }
+}
+// 字体颜色
+.am-serious-color {
+  color: @serious-color  !important;
+}
+// danger-红色
+.am-danger-color {
+  color: @danger-color  !important;
+}
+// warn-黄色
+.am-warn-color {
+  color: @warn-color  !important;
+}
+// primary-主题颜色-深绿色
+.am-primary-color {
+  color: @primary-color  !important;
+}
+// success-绿色
+.am-success-color {
+  color: @success-color  !important;
+}
+
+// info-蓝色
+.am-info-color {
+  color: @info-color  !important;
+}
+
+.am-normal-color {
+  color: @text-color  !important;
+}
+
+
+// muted-静音，比.text-color-secondary还要灰, 目前没用到
+.am-muted-color {
+  color: @text-color-muted  !important;
+}
+
+// 主题颜色-黑色的次级颜色， 偏灰
+.text-color-secondary {
+  color: @text-color-secondary  !important;
+}
+.am-link-del {
+  color: @danger-color;
+  transition: color .3s;
+  cursor: pointer;
+
+  &:hover {
+    color: fade(@danger-color, 80%);
+  }
+
+  &:active {
+    color: darken(@danger-color, 8%);
+  }
+}
+
+.am-link-primary {
+  color: @primary-color;
+  transition: color .3s;
+  cursor: pointer;
+
+  &:hover {
+    color: #2aa1a3;
+  }
+
+  &:active {
+    color: #066770;
+  }
+}
+.am-link-default {
+  cursor: pointer;
+  color: @text-color-secondary;
+
+  &:hover {
+    color: @primary-color;
+  }
+}
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.am-fw-b {
+  font-weight: bold;
+}
+
+.am-ft-normal {
+  font-size: 14px;
+}
+
+.am-ft-medium {
+  font-size: 16px;
+}
+
+.am-ft-large {
+  font-size: 30px;
+}
+
+.w120 {
+  width: 120px !important;
+}
+
+.w160 {
+  width: 160px !important;
+}
+
+.w200 {
+  width: 200px !important;
+}
+
+.w400 {
+  width: 400px !important;
+}
+
+.w100p {
+  width: 100% !important;
+}
+
+.flex-box {
+  display: flex;
+  min-height: 0;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.control-item-txt-list {
+  display: inline-block;
+  vertical-align: top;
+  margin: -10px -16px 0 0;
+
+  .control-item-txt {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 16px 0 0;
+  }
+}
+
+.control-item-list {
+  display: inline-block;
+  vertical-align: top;
+  margin: -10px -16px 0 0;
+
+  .control-item {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 16px 0 0;
+  }
+}
+
+.form-label-colon-txt {
+  position: relative;
+  text-align: right;
+  color: @text-color;
+
+  &::after {
+    content: ':';
+    margin: 0 8px 0 2px;
+    position: relative;
+    top: -0.5px;
+  }
+}
+
+.form-label-colon {
+  position: relative;
+  text-align: right;
+  color: @text-color;
+  line-height: @control-height-base;
+
+  &.required::before {
+    content: '*';
+    display: inline-block;
+    margin-right: 4px;
+    font-family: 'SimSun';
+    font-size: 14px;
+    line-height: 1;
+    color: @danger-color;
+  }
+
+  &::after {
+    content: ':';
+    margin: 0 8px 0 2px;
+    position: relative;
+    top: 0;
+  }
+}
+
+.am-ml-lg {
+  margin-left: 32px !important;
+}
+
+.am-ml {
+  margin-left: 16px !important;
+}
+
+.am-ml-sm {
+  margin-left: 8px !important;
+}
+
+.am-ml-xs {
+  margin-left: 4px !important;
+}
+
+.am-mr-lg {
+  margin-right: 32px !important;
+}
+
+.am-mr {
+  margin-right: 16px !important;
+}
+
+.am-mr-sm {
+  margin-right: 8px !important;
+}
+
+.am-mr-xs {
+  margin-right: 4px !important;
+}
+
+.am-mt {
+  margin-top: 16px;
+}
+
+.am-mt-sm {
+  margin-top: 8px;
+}
+
+.am-mt-control {
+  margin-top: 12px;
+}
+
+.am-m-main {
+  margin: 8px;
+}
+
+.am-pd-medium {
+  padding: 16px;
+}
+
+.am-plr-sm {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.am-ptb-sm {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.position-r {
+  position: relative;
+}
+
+//滚动区域
+.page-wrap {
+  @displayFlex();
+  @flexDirectionColumn();
+  height: 100%;
+  position: relative;
+  text-align: left;
+
+  .page-body {
+    flex: 1 1 auto;
+    overflow: auto;
+  }
+}
+
+//整体布局
+.wrap-con {
+  @displayFlex();
+  @flexWrapNoWrap();
+  @alignItemsStretch();
+  height:100vh;
+  .wrap-side {
+    flex:0 0 160px;
+    width: 160px;
+    height:100%;
+    position: relative;
+    padding-bottom:30px;
+    overflow: hidden;
+    .menu-width {
+      width: 160px;
+      height: 100%;
+      font-size: 16px;
+      @mAIconHide();
+      @tMIconHide();
+      @dRIconHide();
+      @sIconHide();
+      @vIconHide();
+      @feeIconHide();
+      @drugIconHide();
+      @sugIconHide();
+      ul::-webkit-scrollbar {
+        display: none!important;
+      }
+    }
+    .ant-menu {
+      height: 100%;
+      
+      &.ant-menu-inline {
+        border-right: 1px solid #e8e8e8;
+      }
+      .ant-menu-item {
+        margin-top:0;
+        margin-bottom:0;
+        width:159px;
+        height:34px;
+        line-height: 34px;
+        font-size: 15px;
+        background:rgba(246,247,249,1);
+      }
+      .ant-menu-submenu {
+        &.ant-menu-submenu-active{
+          @tMIconShow();
+          @mAIconShow();
+          @dRIconShow();
+          @sIconShow();
+          @vIconShow();
+          @feeIconShow();
+          @drugIconShow();
+          @sugIconShow();
+        }
+        &.ant-menu-submenu-selected {
+          @tMIconShow();
+          @mAIconShow();
+          @dRIconShow();
+          @sIconShow();
+          @vIconShow();
+          @feeIconShow();
+          @drugIconShow();
+          @sugIconShow();
+          .ant-menu-item{
+            &.ant-menu-item-selected{
+              background: #2295F7;
+              a span{
+                color: #fff;
+              }
+            }
+          }
+        }
+        .ant-menu-submenu-title{
+          margin: 0;
+          width:159px;
+          height:38px;
+          font-size: 16px;
+          background:rgba(255,255,255,1);
+        }
+      }
+
+    }
+    //  .ant-menu-inline .ant-menu-item-selected::before {
+    //   transform: scaleY(1);
+    //   opacity: 1;
+    //   transition: transform 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+    // }
+    // .ant-menu-inline .ant-menu-item::before {
+    //   position: absolute;
+    //   top: 0;
+    //   left: 0;
+    //   bottom: 0;
+    //   border-left: 7px solid #1BACff;
+    //   transform: scaleY(0.0001);
+    //   opacity: 0;
+    //   transition: transform 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), opacity 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
+    //   content: '';
+    // }
+    .ant-menu-inline .ant-menu-item::after {
+      border-right: 7px solid #1BACff;
+      content: '';
+    }
+
+
+  }
+  .wrap-side-hide {
+    flex:0 0 50px;
+    width: 50px;
+    height:100%;
+    background:#fff;
+    position: relative;
+    overflow: hidden;
+    // .logo {
+    //   padding-left:0; text-align: center;
+    //   .txt { margin-left:0;}
+    // }
+    .menu-width {
+      width: 50px;
+      height: 100%;
+      ul::-webkit-scrollbar {
+        display: none!important;
+      }
+      .ant-menu{
+        width: 50px;
+        height: 100%;
+        &.ant-menu-vertical {
+          border-right: 1px solid #e8e8e8;
+        }
+        .ant-menu-item{
+          width:159px;
+          height:34px;
+          background:rgba(246,247,249,1);
+        }
+        .ant-menu-submenu{
+          width: 50px;
+          &.ant-menu-submenu-active {
+            @tMIconShow();
+            @mAIconShow();
+            @dRIconShow();
+            @sIconShow();
+            @vIconShow();
+            @feeIconShow();
+            @drugIconShow();
+            @sugIconShow();
+          }
+          &.ant-menu-submenu-selected {
+            @tMIconShow();
+            @mAIconShow();
+            @dRIconShow();
+            @sIconShow();
+            @vIconShow();
+            @feeIconShow();
+            @drugIconShow();
+            @sugIconShow();
+          }
+          @tMIconHide();
+          @mAIconHide();
+          @dRIconHide();
+          @sIconHide();
+          @vIconHide();
+          @feeIconHide();
+          @drugIconHide();
+          @sugIconHide();
+          .ant-menu-submenu-title {
+            padding: 0 15px !important;
+            width: 50px;
+          }
+        }
+
+      }
+    }
+  }
+
+  .menu-Collapsed {
+    position: absolute;
+    bottom:12px; left:50%;
+    right:0;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 18px;
+  }
+  .wrap-right {
+    flex:1 1 auto; height:100%;
+   .wrap-main { height: 100%; width: 100%; overflow: hidden;}
+  }
+}
+
+//设置页面滚动区域
+.main-page {
+  @displayFlex();
+  flex-flow: column;
+  height: 100%;
+
+  .mian-page__main-body {
+    @flex1();
+    overflow: auto;
+  }
+}
+
+
+//面包屑
+a.breadcrumb-txt {
+  font-size: 16px;
+  font-weight: bold;
+  color: @text-color !important;
+  ;
+}
+
+//zwk add
+.am-mid-color {
+  color: #FAAD14 !important;
+}
+
+.am-error-color {
+  color: #F5222D !important;
+}
+
+.am-bad-color {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.hd-head {
+  position: relative;
+  height: 48px;
+  line-height: 48px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: 700;
+
+  .back {
+    display: block;
+    float: left;
+    width: 40px;
+    margin-right: 8px;
+    padding-left: 16px;
+  }
+
+  .line {
+    position: absolute;
+    width: 1px;
+    height: 12px;
+    left: 40px;
+    top: 18px;
+    background: rgba(0, 0, 0, 0.09);
+  }
+
+  .hd-status {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    margin-left: 8px;
+    padding: 0 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .status-ora {
+    background: #FFFBE6;
+    border: 1px solid #FFE58F;
+    color: #FAAD14;
+  }
+
+  .status-gray {
+    background: #F5F5F5;
+    border: 1px solid #D9D9D9;
+    color: rgba(0, 0, 0, 0.65);
+  }
+
+  .status-red {
+    background: #FFF1F0;
+    border: 1px solid #FFA39E;
+    color: #F5222D;
+  }
+
+  .status-green {
+    background: #F6FFED;
+    border: 1px solid #B7EB8F;
+    color: #52C41A;
+  }
+
+  .gdh {
+    margin-left: 8px;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+    font-weight: 400;
+  }
+
+  .look-btn {
+    position: relative;
+    display: block;
+    float: right;
+    width: 32px;
+    height: 32px;
+    margin: 8px 16px 0 0;
+    border: 1px solid #D9D9D9;
+    border-radius: 100%;
+    cursor: pointer;
+
+    .look-btn-icon {
+      display: block;
+      position: absolute;
+      width: 13px;
+      height: 13px;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+    }
+  }
+}
+
+.hd-headfb {
+  padding: 0 16px;
+}
+
+.ant-form-item-control {
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.ant-form-inline .ant-form-item {
+  margin-bottom: 5px;
+  margin-right: 0;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  background-color: #eee;
+  overflow-y: hidden;
+  font-weight: 400;
+}
+
+.ant-table-row-style {
+  background-color: rgb(17,171,218);
+  color:#000000;
+}
+
+
+//输入框自定义样式
+.ant-input {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: 'tnum';
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 32px;
+    padding: 4px 11px;
+    color: rgba(0, 0, 0, 0.65);
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #999;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+.ant-select-selection {
+    display: block;
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 1px solid #999;
+    // border-top-width: 1.02px;
+    border-radius: 2px;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.ant-select-dropdown-menu-item:hover:not(.ant-select-dropdown-menu-item-disabled) {
+    background-color:#11ABDA;
+    color:#fff;
+    transition: all 0.2s
+}
+.ant-select-dropdown-menu-item-active:not(.ant-select-dropdown-menu-item-disabled) {
+    background-color: #11ABDA;
+    color:#fff;
+    transition: all 0.2s
+}
+
+.color-for-table-row {
+    background-color: #26a5ff4a;
+}
+.table-row-backgroundcolor {
+    background-color: #ececec;
+}
+
+// .ant-table {
+//     font-weight: 600!important;
+// }
+
+// .ant-table-thead > tr > th {
+//     font-weight: 600!important;
+// }

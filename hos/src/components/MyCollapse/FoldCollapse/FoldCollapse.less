@@ -1,0 +1,41 @@
+.fold-collapse {
+  margin: 5px 0;
+
+  .fold-collapse-block{
+    display: inline-block;
+    border-radius: 5px;
+    width: 5px;
+    height: 12px;
+    background-color: #178df1;
+  }
+
+  .fold-collapse-title {
+    display: inline-block;
+    padding-left: 15px;
+    width: calc(100% - 5px);
+    height: 25px;
+
+    span {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .fold-collapse-title-btn {
+      float: right;
+      margin-right: 50px;
+    }
+  }
+
+  .fold-collapse-body {
+    clear: both;
+    padding: 20px;
+  }
+
+  //添加伪元素避免父元素不会被子元素撑开
+  .fold-collapse-body::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}

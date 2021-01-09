@@ -1,0 +1,89 @@
+//对cssFlex做的兼容处理
+@displayFlex:{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@displayInlineFlex:{
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;    
+}
+/*伸缩流方向*/
+@flexDirectionColumn : {
+  -webkit-box-orient: vertical;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+/*主轴对齐*/
+@justifyContentCenter : {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+@justifyContentEnd : {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+}
+@justifyContentJustify : {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+/*侧轴对齐*/
+@alignItemsStart : {
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+@alignItemsEnd : {
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  -webkit-align-items: flex-end;
+  align-items: flex-end;
+}
+@alignItemsCenter : {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+@alignItemsStretch: {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: stretch;
+  align-items: stretch;
+}
+@alignItemsBaseline : {
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  -webkit-align-items: baseline;
+  align-items: baseline;
+}
+/*伸缩性*/
+@flexAuto : {
+  -webkit-box-flex: 1;
+  -ms-flex: auto;
+  -webkit-flex: auto;
+  flex: auto;
+}
+@flex1 : {
+  width: 0;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;    
+}
+@flexWrapNoWrap : {
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}

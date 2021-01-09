@@ -1,0 +1,40 @@
+@import '../../assets/styles/compatibility.less';
+// 修改密码弹框样式
+.change-password-form-item{
+  @displayFlex();
+  @justifyContentJustify();
+  .ant-form-item-label{
+    width: 96px;
+    text-align: right;
+  }
+ 
+}
+//退出登录的confirm
+.ant-modal-confirm-confirm{
+  &.user-log-out{
+    .ant-modal-confirm-btns{
+      button{
+        width: 80px;
+        height: 30px;
+        font-weight: 400;
+        font-size: 14px;
+      }
+      .ant-btn{
+        border-radius: 2px;
+        border: 1px solid #8dc9ff;
+        color: #8dc9ff;
+        &.ant-btn-primary{
+          background: #0085e9;
+          border-radius: 2px;
+          color: #fff;
+        }
+      }
+      .ant-btn-primary:hover{
+        background: #0085e9;
+        border-radius: 2px;
+        color: #fff;
+      }
+     
+    }
+  }
+}

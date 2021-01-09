@@ -1,0 +1,176 @@
+@import 'vars.less';
+@import 'compatibility.less';
+  .cm-header {
+    @displayFlex();
+    @justifyContentJustify();
+    height:54px; 
+    padding:0 15px 0 9px; 
+    background:url("../image/headbg.png") no-repeat 0px 0px;
+    background-size:100% 100%;
+    .cm-header-left{
+      @displayFlex();
+      @alignItemsCenter();
+      width: 380px;
+      .logo { 
+        height:54px;
+        width: 144px;
+        background: url(../image/logohead.png) no-repeat center; 
+      }
+      .departments{
+        @displayFlex();
+        @justifyContentCenter(); /* 让子元素水平居中 */
+        @alignItemsCenter();
+        height: 100%;
+        // width: 78px;
+        .ant-dropdown-link {
+          @displayFlex();
+          @justifyContentCenter(); /* 让子元素水平居中 */
+          @alignItemsCenter();
+          height: 100%;
+          &.ant-dropdown-open {
+            // .mask-layer{
+            //   display: block;
+            //   position: fixed;
+            //   top: 54px;
+            //   bottom: 0;
+            //   right: 0;
+            //   left: 0;
+            //   z-index: 10;
+            //   background: rgba(0,0,0,.35);
+            // }
+          }
+        }
+        // .ant-dropdown-link:hover .mask-layer{
+        //   display: block;
+        //   position: fixed;
+        //   top: 54px;
+        //   bottom: 0;
+        //   right: 0;
+        //   left: 0;
+        //   z-index: 2;
+        //   background: rgba(0,0,0,.5);
+
+        // }
+        a{
+          color: #fff;
+        }
+       
+      }
+    }
+    .user {
+      float:right;
+      @displayFlex();
+      @alignItemsCenter();
+      flex-direction: row-reverse;
+      margin-right: 80px;
+      width: 172px;
+
+      height: 54px;
+      .user-avatar{
+        margin-right: 8px;
+        height: 30px;
+        width: 30px;
+        .avatar{
+          height: 100%;
+          width: 100%;
+          background: #FFA39E;
+        }
+      }
+      .header-dropdown-link { 
+        @displayFlex();
+        @alignItemsCenter();
+        height: 100%;
+        color:#fff; 
+        &.ant-dropdown-open {
+          color:rgba(255,255,255,1); 
+        }
+      }
+      .treat-window-settings{
+        @displayFlex();
+        @justifyContentJustify();
+        width: 60px;
+        color: #fff;
+      }
+    }
+ }
+ //zwk add
+ .am-mt-dropdown{
+    .title{ 
+      height: 40px; 
+      line-height: 40px; 
+      padding: 0 16px; 
+      border-bottom: 1px solid rgba(0,0,0,0.09); 
+      color: rgba(0,0,0,0.85);
+        a{ 
+          float: right;
+          color: #235FB8;
+        }
+   }
+   .drop-item{ 
+     display: block; 
+     height: 53px; 
+     line-height: 53px; 
+     padding: 0 16px; 
+     border-bottom: 1px solid rgba(0,0,0,0.09); 
+     color: rgba(0,0,0,0.65);
+      .cm-left{ 
+        display: block;
+        width:156px; 
+        overflow: hidden; 
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .hd-status{ 
+        display: block; 
+        float: right; 
+        height: 22px; 
+        line-height: 22px; 
+        margin-top: 15px; 
+        padding: 0 8px; 
+        border-radius: 4px; 
+        font-size: 12px; 
+        font-weight: 400;
+      }
+      .status-ora{ 
+        background: #FFFBE6; 
+        border: 1px solid #FFE58F; 
+        color: #FAAD14;
+      }
+      .status-gray{ 
+        background: #F5F5F5;
+         border: 1px solid #D9D9D9; 
+         color: rgba(0,0,0,0.65);
+        }
+      .status-red{ 
+        background: #FFF1F0; 
+        border: 1px solid #FFA39E; 
+        color: #F5222D;
+      }
+      .status-green{ 
+        background: #F6FFED; 
+        border: 1px solid #B7EB8F; 
+        color: #52C41A;
+      }
+   }
+}
+.departments-list{
+  @displayFlex();
+  @justifyContentJustify();
+  .departments-list-item{
+    @displayFlex();
+    @justifyContentJustify();
+    .departments-text{
+      margin-right: 5px;
+    }
+  }
+}
+// 修改密码弹框样式
+.change-password-form-item{
+  @displayFlex();
+  @justifyContentJustify();
+  .ant-form-item-label{
+    width: 96px;
+    text-align: right;
+  }
+ 
+}

@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <META HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate">
+    <META HTTP-EQUIV="expires" CONTENT="0">
+    <script src="./js/axios.min.js"></script>
+    <% if (context.title != null) { %>
+        <title><%= context.title %></title>
+    <% } %>
+
+    <script type="text/javascript">
+        <%- context.docSaved %>
+        <%- context.docUpdated %>
+        <%- context.docCancelled %>
+    </script>
+</head>
+<body>
+<div id="<%= context.config.mountElementId %>"></div>
+</body>
+</html>
