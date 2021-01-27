@@ -25,22 +25,11 @@ class Index extends Component {
   // 点击登录操作
     onloginHandler = async(values) => {
       const { dispatch,platform} = this.props;
-      
-      let deptName =  platform.department.find(item => item.deptCode===values.partment) ? platform.department.find(item => item.deptCode===values.partment).deptName: null;
      await dispatch({
         type: 'platform/platformLogin',
-        payload:{...values,deptName} ,
+        payload:{...values,} ,
       });
     } 
-  selectDepart = (a,b) => { 
-    const { dispatch } = this.props;
-    let account = this.inputAccount.state.value;
-    if(account==''||account==null){return}
-    dispatch({
-      type: 'platform/platformDepart',
-      payload: {account}
-    })
-  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const { platform,loading } = this.props;

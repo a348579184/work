@@ -34,11 +34,15 @@ class LeftMenu extends React.Component {
     render() {
         const { location } = this.props;
         return (
-            <div className={this.state.collapsed ? 'wrap-side-hide' : 'wrap-side'}>
+            <div 
+            className={this.state.collapsed ? 'wrap-side-hide' : 'wrap-side'}
+            >
                 <div style={{ height: 'calc(100vh - 56px)' }}>
-                    <div className='menu-width'>
+                    <div 
+                    // className='menu-width'
+                    >
                         <Menu
-                            selectedKeys={[`${this.props.history.location.pathname === "/TreatManagement/ExecuteDetail" ? "/TreatManagement/Execute" : this.props.history.location.pathname}`]}
+                            selectedKeys={'/BasicSettings/StaffManagement'}
                             mode='inline'
                             inlineCollapsed={this.state.collapsed}
                             theme="dark"
@@ -46,7 +50,7 @@ class LeftMenu extends React.Component {
                         >
                             
                             <SubMenu
-                                key="MedicalAppointments"
+                                key="BasicSettings"
                                 title={
                                     <Fragment>
                                         <Icon className="m-a-icon"/>

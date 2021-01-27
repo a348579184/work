@@ -1,17 +1,15 @@
-/**
- * @file 费用补录
- */
+
 import React, { PureComponent, Component, Fragment, } from "react";
-import StaffManagement from '@/containers/StaffManagement';
+import StaffManagementResearch from '@/containers/StaffManagement';
 
 
-export default class TreatExecute extends Component {
+export default class StaffManagement extends Component {
     render() {
         return (
             <div className="content">
-                <StaffManagement title={"员工管理"}>
+                <StaffManagementResearch title='员工管理'>
                     
-                </StaffManagement>
+                </StaffManagementResearch>
             </div>
         )
     }
