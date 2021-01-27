@@ -16,7 +16,7 @@ export default {
       antd: true,
       dva: true,
       dynamicImport: false,
-      title: '治疗管理工作站',
+      title: 'hos',
       dll: false,
 
       routes: {

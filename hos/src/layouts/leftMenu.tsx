@@ -41,26 +41,27 @@ class LeftMenu extends React.Component {
                             selectedKeys={[`${this.props.history.location.pathname === "/TreatManagement/ExecuteDetail" ? "/TreatManagement/Execute" : this.props.history.location.pathname}`]}
                             mode='inline'
                             inlineCollapsed={this.state.collapsed}
-                            theme="Light"
+                            theme="dark"
                             style={{ height: 'calc(100vh - 100px)', overflowY: 'auto', overflowX: 'hidden' }}
                         >
-                            {/* <SubMenu
+                            
+                            <SubMenu
                                 key="MedicalAppointments"
                                 title={
                                     <Fragment>
                                         <Icon className="m-a-icon"/>
-                                        <span>治疗预约</span>
+                                        <span>基础设置</span>
                                     </Fragment>
                                 }
 
                             >
                                 
-                              <Menu.Item key="/MedicalAppointments/Plan">
-                                <Link to="/MedicalAppointments/Plan">
-                                  <span>预约登记管理</span>
+                              <Menu.Item key="/BasicSettings/StaffManagement">
+                                <Link to="/BasicSettings/StaffManagement">
+                                  <span>员工管理</span>
                                 </Link>
                               </Menu.Item>
-                            </SubMenu> */}
+                            </SubMenu>
 
                             
 

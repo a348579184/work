@@ -25,12 +25,7 @@ class Index extends Component {
   // 点击登录操作
     onloginHandler = async(values) => {
       const { dispatch,platform} = this.props;
-      await dispatch({
-        type: 'platform/getPlatformUserinfo',
-        payload: {
-          account:values.account
-        },
-      });
+      
       let deptName =  platform.department.find(item => item.deptCode===values.partment) ? platform.department.find(item => item.deptCode===values.partment).deptName: null;
      await dispatch({
         type: 'platform/platformLogin',
@@ -70,7 +65,7 @@ class Index extends Component {
 
                   document.getElementById('login_password').focus()
                 }}
-                ref={ref => this.inputAccount = ref} onBlur={this.selectDepart} prefix={<i className="i-login-user"></i>} placeholder="请输入用户名" />
+                ref={ref => this.inputAccount = ref} prefix={<i className="i-login-user"></i>} placeholder="请输入用户名" />
               )}
             </Form.Item>
               <Form.Item className="login-item">
@@ -84,32 +79,6 @@ class Index extends Component {
                   document.querySelector('#login_partment>div').focus()
                 }}
                 size="large" prefix={<i className="i-login-pwd"></i>} placeholder="请输入密码" />
-              )}
-            </Form.Item>
-              <Form.Item className="login-item">
-              {getFieldDecorator('partment', {
-                // initialValue: departValue.departmentCode,
-                rules: [{ required: true, message: '请选择科室' }],
-              })(
-                <Select className="login-select select-underline" size="large" 
-                showSearch
-                id={'sel1'}
-                optionFilterProp='children'
-                filterOption={(input, option) =>{
-                  return option.props.item.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                  }
-                }
-                onChange={(e,option)=>{
-                  document.getElementById('loginBtn').focus()
-                }}
-                placeholder="请选择科室" bordered={false}>
-                {
-                  department.map((item) =><Option key={item.deptCode} 
-                  value={item.deptCode}
-                  item={JSON.stringify(item)}
-                  >{item.deptName}</Option>)
-                }
-                </Select>
               )}
             </Form.Item>
               <Form.Item className="login-item-btn">
