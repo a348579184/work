@@ -44,11 +44,11 @@ export default {
 
   proxy: {
     '/api': {
-       target: 'http://192.168.150.14:9900/',
+       target: 'http://47.95.213.112:8091',
       // target: 'http://127.0.0.1:7778/',
       //演示服务器
       // target: 'http://192.168.201.162:9900/',
-      changeOrigin: true,
+      changeOrigin: false,
       pathRewrite: { '^/api': '/' },
     },
 

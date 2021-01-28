@@ -34,6 +34,32 @@ class StaffManagementResearch extends React.Component {
             }
         };
     }
+    columns=[
+        {
+            title:'序号',
+            width:50,
+            render:(text,record,index)=>index+1
+        },{
+            title:'工号',
+            width:120,
+            ellipsis: true
+        },{
+            title:'姓名',
+            width:80,
+            ellipsis: true
+        },{
+            title:'手机号',
+            width:120,
+            ellipsis: true
+        },{
+            title:'类型',
+            width:120,
+            ellipsis: true
+        },
+    ]
+    search=()=>{
+
+    }
 
 
     render() {
@@ -60,16 +86,17 @@ class StaffManagementResearch extends React.Component {
                     <div className="research-body-content-body">
                         <div class={'searchCondition'}>
                             <div>
-                            <Search
-                                placeholder="input search text"
-                                value={this.state.searchCondition.input}
-                                onSearch={value => {
-                                    let obj=this.state.searchCondition
-                                    obj.input=value
-                                    this.setState({searchCondition:obj})
-                                }}
-                                style={{ width: 200 }}
-                            /> 
+                                <Search
+                                    placeholder="input search text"
+                                    value={this.state.searchCondition.input}
+                                    onChange={e => {
+                                        let obj=this.state.searchCondition
+                                        obj.input=e.target.value
+                                        this.setState({searchCondition:obj})
+                                    }}
+                                    onSearch={this.search}
+                                    style={{ width: 200 }}
+                                /> 
                             </div>
                             <div>
                                 <Select style={{ width: 200 }} 
@@ -77,14 +104,20 @@ class StaffManagementResearch extends React.Component {
                                    onChange={value => {
                                     let obj=this.state.searchCondition
                                     obj.state=value
-                                    this.setState({searchCondition:obj})
+                                    this.setState({searchCondition:obj},this.search)
                                    }}
                                 >
                                     {/* <Option>全部状态</Option> */}
                                 </Select>
                             </div>
-                            <div></div>
+                            <div>
+                                <Button type='primary' onClick={this.search}> 查询</Button>
+                            </div>
                         </div>
+                    
+                        <Table columns={this.columns}>
+
+                        </Table>
                     </div>
                     {/* 底部按钮 */}
                 </div>

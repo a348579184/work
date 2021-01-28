@@ -13,7 +13,7 @@ import { platformKey, isSuccess, platformToken } from '../utils/constant';
 import { userInfo } from 'os';
 import { message } from 'antd';
 import pathToRegexp from 'path-to-regexp';
-const { platform_login, platform_departName ,platform_userinfo,staffVsGroup_getMenuAuth,treat_secretLogin} = api;
+const { doLogin} = api;
 
 
 export default {
@@ -27,6 +27,7 @@ export default {
         *platformLogin({ payload,callback}, { call, put }) {
             sessionStorage.setItem(platformToken,'sss')
             router.push('/BasicSettings/StaffManagement')
+            let response=yield call(doLogin,payload)
         },
        
 
