@@ -13,7 +13,7 @@ import { platformKey, isSuccess, platformToken } from '../utils/constant';
 import { userInfo } from 'os';
 import { message } from 'antd';
 import pathToRegexp from 'path-to-regexp';
-const { doLogin} = api;
+const { doLogin,staffDict_getStaffDictByUser} = api;
 
 
 export default {
@@ -25,9 +25,18 @@ export default {
 
     effects: {
         *platformLogin({ payload,callback}, { call, put }) {
-            sessionStorage.setItem(platformToken,'sss')
-            router.push('/BasicSettings/StaffManagement')
             let response=yield call(doLogin,payload)
+            if(response.success){
+                let f=new FormData()
+                f.append('userId',payload.userId)
+                let userInfo=yield call(staffDict_getStaffDictByUser,f)
+                sessionStorage.setItem(platformToken,'sss')
+                sessionStorage.setItem('userInfo',JSON.stringify(userInfo.result))
+                sessionStorage.setItem('hospCode',userInfo.result.hospCode)
+                router.push('/BasicSettings/StaffManagement')
+            }else{
+                message.error(response.msg)
+            }
         },
        
 

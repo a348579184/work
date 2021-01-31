@@ -45,14 +45,14 @@ class Index extends Component {
             </div>
             <Form onSubmit={this.onLogin}>
               <Form.Item className="login-item">
-              {getFieldDecorator('account', {
+              {getFieldDecorator('userId', {
                 rules: [{ required: true, message: '请输入用户名' }],
               })(
                 <Input className="input-login-text" size="large" 
                 onPressEnter={()=>{
                   console.log()
 
-                  document.getElementById('login_password').focus()
+                  // document.getElementById('login_password').focus()
                 }}
                 ref={ref => this.inputAccount = ref} prefix={<i className="i-login-user"></i>} placeholder="请输入用户名" />
               )}
@@ -65,7 +65,7 @@ class Index extends Component {
                 id={'inp12'}
                 onPressEnter={()=>{
                   // console.log(document.getElementById('login_partment'))
-                  document.querySelector('#login_partment>div').focus()
+                  document.querySelector('loginBtn').focus()
                 }}
                 size="large" prefix={<i className="i-login-pwd"></i>} placeholder="请输入密码" />
               )}

@@ -87,11 +87,9 @@ class HeaderUser extends Component {
         cancelText: '取消',
         className: 'user-log-out',
         onOk() {
-            sessionStorage.removeItem("user");
             sessionStorage.removeItem("platformToken");
-            sessionStorage.removeItem("deptCode");
-            // sessionStorage.removeItem("depart");
-            sessionStorage.removeItem("userinfo");
+            
+            sessionStorage.removeItem("userInfo");
             // history.go(0)
             router.replace('/login');
         },
@@ -103,12 +101,19 @@ class HeaderUser extends Component {
   // 用户Menu
   userMenu = (
     <Menu>
-        <Menu.Item  onClick={this.onModalVisible}>修改密码</Menu.Item>
+        {/* <Menu.Item  onClick={this.onModalVisible}>修改密码</Menu.Item> */}
         <Menu.Item onClick={this.onClick}>退出</Menu.Item>
     </Menu>
   );
   render () {
     const {form,tokenuserInfo} =this.props;
+    let userInfo=sessionStorage.getItem('userInfo')
+    if(userInfo=='undefined'){
+      
+    }else{
+      userInfo=JSON.parse(sessionStorage.getItem('userInfo'))
+    }
+    
     const { getFieldDecorator } = form;
     return (
       <Fragment>
@@ -118,7 +123,7 @@ class HeaderUser extends Component {
           placement='bottomRight'
         >
           <span className="header-dropdown-link" >
-          {tokenuserInfo?tokenuserInfo.name:"李冰冰"} <Icon type="down" />
+          {userInfo?userInfo.userName:"李冰冰"} <Icon type="down" />
           </span>
         </Dropdown>
         <Modal

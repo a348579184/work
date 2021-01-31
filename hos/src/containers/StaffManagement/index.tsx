@@ -30,7 +30,7 @@ class StaffManagementResearch extends React.Component {
         this.state = {
             searchCondition:{
                 input:'',
-                state:'',
+                state:'3',
             }
         };
     }
@@ -58,7 +58,16 @@ class StaffManagementResearch extends React.Component {
         },
     ]
     search=()=>{
-
+        const {dispatch}=this.props
+        let obj=this.state.searchCondition
+        dispatch({
+            type:'staffManagement/staffDict_getStaffDict',
+            payload:{
+                status:obj.state==3?'':obj.state,
+                input:obj.input,
+                hosCode:sessionStorage.getItem('hospCode')
+            }
+        })
     }
 
 
@@ -107,7 +116,9 @@ class StaffManagementResearch extends React.Component {
                                     this.setState({searchCondition:obj},this.search)
                                    }}
                                 >
-                                    {/* <Option>全部状态</Option> */}
+                                    <Option key='3'>全部状态</Option>
+                                    <Option key='1'>启用</Option>
+                                    <Option key='2'>停用</Option>
                                 </Select>
                             </div>
                             <div>

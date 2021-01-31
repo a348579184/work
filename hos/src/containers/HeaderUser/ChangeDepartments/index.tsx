@@ -65,7 +65,7 @@ class ChangeDepartments extends Component {
     const {department,token,tokendepart} = this.props;
     return (
       <Fragment>
-        <Dropdown
+        {/* <Dropdown
           overlay={this.DepartmentsMenu(tokendepart)}
           placement="bottomLeft"
         >
@@ -73,7 +73,7 @@ class ChangeDepartments extends Component {
           {token && token.deptName}<Icon type="down" />
             <div className="mask-layer"></div>
           </a>
-        </Dropdown>
+        </Dropdown> */}
       </Fragment>
     )
   }
