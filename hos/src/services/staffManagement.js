@@ -6,6 +6,7 @@ import {API_EMR_TREAT,API} from '../utils/constant';
 */
 const platform = {
     staffDict_getStaffDict:`POST /api/staffDict/getStaffDict`,
+    staffDict_saveStaffDict:`POST /api/staffDict/saveStaffDict`,
 }
 
 const APIFunction = {}

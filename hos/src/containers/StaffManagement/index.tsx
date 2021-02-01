@@ -8,6 +8,7 @@
 import React, { Fragment } from 'react';
 import router from 'umi/router';
 import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox } from 'antd';
+import CreateDra from '@/containers/StaffManagement/CreateDra'
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
@@ -23,7 +24,7 @@ const { Search } = Input;
 const { Option } = Select;
 
 @withRouter
-@connect(({ loading,  }) => ({ loading, }))
+@connect(({ loading,  staffManagement}) => ({ loading, staffManagement}))
 class StaffManagementResearch extends React.Component {
     constructor(props) {
         super(props);
@@ -31,6 +32,7 @@ class StaffManagementResearch extends React.Component {
             searchCondition:{
                 input:'',
                 state:'3',
+                visible:false
             }
         };
     }
@@ -42,21 +44,66 @@ class StaffManagementResearch extends React.Component {
         },{
             title:'工号',
             width:120,
+            key:'id',
+            dataIndex:'id',
             ellipsis: true
         },{
             title:'姓名',
             width:80,
+            key:'userName',
+            dataIndex:'userName',
             ellipsis: true
         },{
             title:'手机号',
             width:120,
+            key:'tel',
+            dataIndex:'tel',
             ellipsis: true
         },{
             title:'类型',
             width:120,
+            key:'job',
+            dataIndex:'job',
+            ellipsis: true
+        },{
+            title:'诊所名称',
+            width:120,
+            key:'hospName',
+            dataIndex:'hospName',
+            ellipsis: true
+        },{
+            title:'创建人',
+            width:120,
+            key:'createName',
+            dataIndex:'createName',
+            ellipsis: true
+        },{
+            title:'修改人',
+            width:120,
+            key:'updateName',
+            dataIndex:'updateName',
+            ellipsis: true
+        },{
+            title:'权限',
+            width:120,
+            ellipsis: true
+        },{
+            title:'修改',
+            width:120,
+            ellipsis: true
+        },{
+            title:'修改密码',
+            width:120,
+            ellipsis: true
+        },{
+            title:'签名设置',
+            width:120,
             ellipsis: true
         },
     ]
+    closeModal=()=>{
+        this.setState({visible:false})
+    }
     search=()=>{
         const {dispatch}=this.props
         let obj=this.state.searchCondition
@@ -65,15 +112,19 @@ class StaffManagementResearch extends React.Component {
             payload:{
                 status:obj.state==3?'':obj.state,
                 input:obj.input,
-                hosCode:sessionStorage.getItem('hospCode')
+                hospCode:sessionStorage.getItem('hospCode')
             }
         })
+    }
+    createStaff=()=>{
+        this.setState({visible:true})
     }
 
 
     render() {
         const { children } = this.props;
         const title = this.props.title;
+        const {staffManagement}=this.props
         // const myDisabled=sessionStorage.getItem('platformToken')=='appointmentSystem'
         const myDisabled=false
         return (
@@ -86,14 +137,15 @@ class StaffManagementResearch extends React.Component {
                     </div>
                     {/* 右侧搜索项 */}
                     <div className="right-research">
-                        <Button type='primary'>新增员工</Button>
+                        <Button type='primary' onClick={this.createStaff}>新增员工</Button>
                     </div>
                 </div>
                 {/* 搜索框包裹内容 */}
                 <div className="research-body-content">
                     {/* 主体 */}
                     <div className="research-body-content-body">
-                        <div class={'searchCondition'}>
+                        <div className={'searchCondition'}>
+                        <CreateDra visible={this.state.visible} closeModal={this.closeModal} search={this.search}/>
                             <div>
                                 <Search
                                     placeholder="input search text"
@@ -117,8 +169,8 @@ class StaffManagementResearch extends React.Component {
                                    }}
                                 >
                                     <Option key='3'>全部状态</Option>
-                                    <Option key='1'>启用</Option>
-                                    <Option key='2'>停用</Option>
+                                    <Option key='0'>启用</Option>
+                                    <Option key='1'>停用</Option>
                                 </Select>
                             </div>
                             <div>
@@ -126,7 +178,10 @@ class StaffManagementResearch extends React.Component {
                             </div>
                         </div>
                     
-                        <Table columns={this.columns}>
+                        <Table 
+                          columns={this.columns}
+                          dataSource={staffManagement.staffList}
+                        >
 
                         </Table>
                     </div>
