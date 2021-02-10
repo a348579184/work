@@ -64,7 +64,16 @@ class StaffManagementResearch extends React.Component {
             width:120,
             key:'job',
             dataIndex:'job',
-            ellipsis: true
+            ellipsis: true,
+            render:text=>{
+                let str=''
+                if(text==1){
+                    str='医生'
+                }else if(text==2){str='护士'}
+                else if(text==3){str='前台'}
+                else if(text==4){str='其他'}
+                return str
+            }
         },{
             title:'诊所名称',
             width:120,
@@ -83,24 +92,11 @@ class StaffManagementResearch extends React.Component {
             key:'updateName',
             dataIndex:'updateName',
             ellipsis: true
-        },{
-            title:'权限',
-            width:120,
-            ellipsis: true
-        },{
-            title:'修改',
-            width:120,
-            ellipsis: true
-        },{
-            title:'修改密码',
-            width:120,
-            ellipsis: true
-        },{
-            title:'签名设置',
-            width:120,
-            ellipsis: true
-        },
+        }
     ]
+    componentDidMount(){
+        this.search()
+    }
     closeModal=()=>{
         this.setState({visible:false})
     }

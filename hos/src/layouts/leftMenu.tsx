@@ -42,10 +42,12 @@ class LeftMenu extends React.Component {
                     // className='menu-width'
                     >
                         <Menu
-                            selectedKeys={'/BasicSettings/StaffManagement'}
+                            // selectedKeys={'/BasicSettings/StaffManagement'}
+                            defaultOpenKeys={['BasicSettings']}
+                            defaultSelectedKeys={'/BasicSettings/StaffManagement'}
                             mode='inline'
                             inlineCollapsed={this.state.collapsed}
-                            theme="dark"
+                            theme="light"
                             style={{ height: 'calc(100vh - 100px)', overflowY: 'auto', overflowX: 'hidden' }}
                         >
                             
@@ -63,6 +65,11 @@ class LeftMenu extends React.Component {
                               <Menu.Item key="/BasicSettings/StaffManagement">
                                 <Link to="/BasicSettings/StaffManagement">
                                   <span>员工管理</span>
+                                </Link>
+                              </Menu.Item>
+                              <Menu.Item key="/BasicSettings/ItemSetting">
+                                <Link to="/BasicSettings/ItemSetting">
+                                  <span>就诊事项设置</span>
                                 </Link>
                               </Menu.Item>
                             </SubMenu>

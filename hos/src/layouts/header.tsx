@@ -14,7 +14,7 @@ export default class Header extends Component {
       <Fragment>
         <div className='cm-header'>
           <div className="cm-header-left">
-            <div className='logo'></div>
+            {/* <div className='logo'></div> */}
             <Divider type="vertical" />
             <div className="departments">
               {/* 切换科室 */}
@@ -25,13 +25,13 @@ export default class Header extends Component {
             {/* 用户头像 */}
             {/* <div className="user-avatar">
             </div> */}
-             <Divider type="vertical" />
+             {/* <Divider type="vertical" /> */}
             {/* 用戶信息-退出登录&&修改密码 */}
             <HeaderUser/>
            
           </div>
           {/*治疗管理工作站窗口设置 */}
-          <WindowSettings/>
+          {/* <WindowSettings/> */}
         </div>
       </Fragment>
     )
