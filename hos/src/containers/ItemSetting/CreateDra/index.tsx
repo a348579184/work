@@ -7,7 +7,7 @@
 
 import React, { Fragment } from 'react';
 import router from 'umi/router';
-import { Select, Input, Button, Table, message,Radio, Checkbox, Modal,Form } from 'antd';
+import { Select, Input, Button, Table, message,Radio, Checkbox, Modal,Form ,Icon} from 'antd';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
@@ -23,7 +23,7 @@ const { Search } = Input;
 const { Option } = Select;
 @Form.create()
 @withRouter
-@connect(({ loading,  staffManagement}) => ({ loading, staffManagement}))
+@connect(({ loading,  itemSetting}) => ({ loading, itemSetting}))
 class CreateDra extends React.Component {
     constructor(props) {
         super(props);
@@ -31,60 +31,76 @@ class CreateDra extends React.Component {
             searchCondition:{
                 input:'',
                 state:'3',
+                tagType:'',
+                tagName:''
             }
         };
     }
+    componentDidMount(){}
     handleOk=()=>{
         // let obj=this.props.form.getFieldsValue()
         // console.log(obj)
-        const {dispatch}=this.props
+        const {dispatch,type,record}=this.props
         this.props.form.validateFields((err, values) => {
             if (!err) {
-              if(values.password!=values.passwordTwo){
-                  message.error('两次密码不一致，请确认！')
-                  return
+              if(type=='add'){
+                  let obj={
+                            "id": '',
+                            "tagCode": "",
+                            tagName:values.tagName,
+                            "time": values.time,
+                            "titalCode": '',
+                            "titalName": values.titalName
+                        }
+                   dispatch({
+                       type:'itemSetting/titalDict_saveTitalDict',
+                       payload:obj,
+                       callback:(res)=>{
+                           if(res.success){
+                               message.success('新增成功！')
+                               this.props.onSearch()
+                               this.closeModal()
+                               return
+                           }else{
+                               message.error(res.msg)
+                           }
+                       }
+                   })
+              }else{
+                  let obj={
+                            "id": record.id,
+                            "tagCode": "",
+                            tagName:values.tagName,
+                            "time": values.time,
+                            "titalCode": values.titalCode,
+                            "titalName": values.titalName
+                        }
+                   dispatch({
+                       type:'itemSetting/titalDict_updateTitalDict',
+                       payload:obj,
+                       callback:(res)=>{
+                           if(res.success){
+                               message.success('修改成功！')
+                               this.props.onSearch()
+                               this.closeModal()
+                               return
+                           }else{
+                               message.error(res.msg)
+                           }
+                       }
+                   })
               }
-              let userInfo=sessionStorage.getItem('userInfo')
-               userInfo=JSON.parse(userInfo)
-              let obj={
-                "createName": userInfo.userName,
-                "createTime": "",
-                "hospCode": userInfo.hospCode,
-                "hospName": userInfo.hospName,
-                "id": '',
-                "job": values.job,
-                "jobPoint": '',
-                "password": values.password,
-                "signature": "",
-                "status": 0,
-                "tel": values.tel,
-                "updateName": userInfo.userName,
-                "updateId":userInfo.userId,
-                "updateTime": '',
-                "userId": values.userId,
-                "userName": values.name
-              }
-              let staffDictList=[]
-              staffDictList.push(obj)
-              dispatch({
-                  type:'staffManagement/staffDict_saveStaffDict',
-                  payload:{
-                    staffDictList
-                  },
-                  callback:res=>{
-                      if(res.success){
-                          message.success('新增成功！！')
-                          this.props.closeModal()
-                          this.props.search()
-                      }else{
-                          message.error(res.msg)
-                      }
-                  }
-              })
-              
-
             }
           });
+    }
+    selOnchange=(e,option)=>{
+        if(e=='new'){
+            this.setState({tagType:'new'})
+        }
+    }
+    closeModal=()=>{
+        this.props.closeModal()
+        this.setState({tagType:'',tagName:''})
     }
     
     
@@ -92,6 +108,7 @@ class CreateDra extends React.Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        const {type,record}=this.props
         let userInfo=sessionStorage.getItem('userInfo')
         userInfo=JSON.parse(userInfo)
         const formItemLayout = {
@@ -121,13 +138,14 @@ class CreateDra extends React.Component {
                 title="新增员工"
                 visible={this.props.visible}
                 onOk={this.handleOk}
-                onCancel={this.props.closeModal}
+                onCancel={this.closeModal}
                 destroyOnClose={true}
             >
                 <Form {...formItemLayout} onSubmit={this.handleOk}>
-                <Form.Item label="类型">
-                        {getFieldDecorator('job', {
-                            initialValue:1,
+                 
+                    <Form.Item label="名称">
+                        {getFieldDecorator('titalName', {
+                            initialValue:type=='edit'?record.titalName:'',
                             rules: [
                                 // {
                                 //     type: 'email',
@@ -135,32 +153,50 @@ class CreateDra extends React.Component {
                                 // },
                                 {
                                     required: true,
-                                    message: '请输入工号！',
-                                },
-                                ],
-                        })(<Radio.Group  defaultValue={1} name="radiogroup">
-                        <Radio value={1}>医生</Radio>
-                        <Radio value={2}>护士</Radio>
-                        <Radio value={3}>前台</Radio>
-                        <Radio value={4}>其他</Radio>
-                      </Radio.Group>)}
-                    </Form.Item>
-                    <Form.Item label="登陆工号">
-                        {getFieldDecorator('userId', {
-                            rules: [
-                                // {
-                                //     type: 'email',
-                                //     message: 'The input is not valid E-mail!',
-                                // },
-                                {
-                                    required: true,
-                                    message: '请输入工号！',
+                                    message: '请输入名称！',
                                 },
                                 ],
                         })(<Input />)}
                     </Form.Item>
-                    <Form.Item label="姓名">
-                        {getFieldDecorator('name', {
+                    {
+                        this.state.tagType=='new'?<Form.Item label="标签">
+                        {getFieldDecorator('tagNameNew', {
+                            initialValue:'',
+                            rules: [
+                                // {
+                                //     type: 'email',
+                                //     message: 'The input is not valid E-mail!',
+                                // },
+                                {
+                                    // required: true,
+                                    message: '请输入标签！',
+                                },
+                                ],
+                        })(<Input  suffix={<div onClick={()=>{this.setState({tagType:''})}} style={{position:'relative',zIndex:90,cursr:'pointer'}}><Icon type="arrow-left"   /></div>}/>)}
+                    </Form.Item>:
+                    <Form.Item label="标签">
+                        {getFieldDecorator('tagName', {
+                            initialValue:type=='edit'?record.tagName:'',
+                            rules: [
+                                // {
+                                //     type: 'email',
+                                //     message: 'The input is not valid E-mail!',
+                                // },
+                                {
+                                    // required: true,
+                                    message: '请输入标签！',
+                                },
+                                ],
+                        })(<Select onChange={this.selOnchange}>
+                            <Option key='new'>
+                                新增标签   
+                            </Option>   
+                        </Select>)}
+                    </Form.Item>
+                    }
+                    <Form.Item label="时长">
+                        {getFieldDecorator('time', {
+                            initialValue:type=='edit'?record.time:'',
                             rules: [
                                 // {
                                 //     type: 'email',
@@ -168,69 +204,11 @@ class CreateDra extends React.Component {
                                 // },
                                 {
                                     required: true,
-                                    message: '请输入姓名！',
+                                    message: '请输入时长！',
+                                    // type:'number'
                                 },
                                 ],
-                        })(<Input />)}
-                    </Form.Item>
-                    <Form.Item label="登陆诊所">
-                        {getFieldDecorator('hospCode', {
-                            initialValue:userInfo.hospName,
-                            rules: [
-                                // {
-                                //     type: 'email',
-                                //     message: 'The input is not valid E-mail!',
-                                // },
-                                {
-                                    required: true,
-                                    message: '请选择登陆诊所！',
-                                },
-                                ],
-                        })(<Select disabled>
-
-                        </Select>   )}
-                    </Form.Item>
-                    <Form.Item label="登陆密码">
-                        {getFieldDecorator('password', {
-                            rules: [
-                                // {
-                                //     type: 'email',
-                                //     message: 'The input is not valid E-mail!',
-                                // },
-                                {
-                                    required: true,
-                                    message: '请输入密码！',
-                                },
-                                ],
-                        })(<Input />)}
-                    </Form.Item>
-                    <Form.Item label="密码确认">
-                        {getFieldDecorator('passwordTwo', {
-                            rules: [
-                                // {
-                                //     type: 'email',
-                                //     message: 'The input is not valid E-mail!',
-                                // },
-                                {
-                                    required: true,
-                                    message: '请再次输入密码',
-                                },
-                                ],
-                        })(<Input />)}
-                    </Form.Item>
-                    <Form.Item label="手机号">
-                        {getFieldDecorator('tel', {
-                            rules: [
-                                // {
-                                //     type: 'email',
-                                //     message: 'The input is not valid E-mail!',
-                                // },
-                                // {
-                                //     required: true,
-                                //     message: '请再次输入密码',
-                                // },
-                                ],
-                        })(<Input />)}
+                        })( <Input />)}
                     </Form.Item>
 
                 </Form>

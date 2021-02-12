@@ -5,9 +5,11 @@ import {API_EMR_TREAT,API} from '../utils/constant';
  * @description 写入接口需要拼接 const API_EMR_TREAT='/api/emr/treat' 前缀
 */
 const platform = {
-    staffDict_getStaffDict:`POST /api/staffDict/getStaffDict`,
-    staffDict_saveStaffDict:`POST /api/staffDict/saveStaffDict`,
-    staffDict_delStaffDictById:`POST /api/staffDict/delStaffDictById`,
+  doLogin:`POST /api/doLogin`,
+  tagDict_getRegistrationTag:'POST /api/tagDict/getRegistrationTag',
+  titalDict_saveTitalDict:`POST /api/titalDict/saveTitalDict`,
+  titalDict_updateTitalDict:`POST /api/titalDict/updateTitalDict`,
+  tagDict_getPatientTag:'POST /api/tagDict/getPatientTag'
 }
 
 const APIFunction = {}

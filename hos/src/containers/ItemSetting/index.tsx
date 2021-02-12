@@ -7,7 +7,7 @@
 
 import React, { Fragment } from 'react';
 import router from 'umi/router';
-import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox } from 'antd';
+import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox,Popconfirm } from 'antd';
 import CreateDra from '@/containers/ItemSetting/CreateDra'
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -24,12 +24,14 @@ const { Search } = Input;
 const { Option } = Select;
 
 @withRouter
-@connect(({ loading,  staffManagement}) => ({ loading, staffManagement}))
+@connect(({ loading,  itemSetting}) => ({ loading, itemSetting}))
 class ItemSetting extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visible:false
+            visible:false,
+            type:'',
+            record:{}
         };
     }
     columns=[
@@ -37,43 +39,73 @@ class ItemSetting extends React.Component {
             title:'序号',
             width:'50px',
             key:'xh',
-            dataIndex:'xh'
+            dataIndex:'xh',
+            render:(text,record,index)=>index+1
         },{
             title:'就诊事项',
             width:'30%',
-            key:'',
-            dataIndex:''
+            key:'titalName',
+            dataIndex:'titalName'
         },{
-            title:'颜色',
+            title:'标签',
             width:'20%',
-            key:'',
-            dataIndex:'',
-            render:(text,record,index)=>{
-
-            }
+            key:'tagName',
+            dataIndex:'tagName',
+        
         },{
             title:'默认时长',
             width:'20%',
-            key:'',
-            dataIndex:''
+            key:'time',
+            dataIndex:'time'
         },{
             title:'操作',
             width:'20%',
             key:'cz',
             dataIndex:'cz',
             render:(text,record,index)=>{
-
+                return <div>
+                           <a onClick={()=>this.edit(record)}>修改</a>
+                           <Popconfirm
+                                title="确认删除?"
+                                onConfirm={()=>this.del(record)}
+                                // onCancel={cancel}
+                                okText='确认'
+                                cancelText="取消"
+                            >
+                                <a style={{color:'red',marginLeft:'8px'}}>删除</a>
+                            </Popconfirm>
+                           
+                       </div>
             }
         },
     ]
     componentDidMount(){
+        const {dispatch}=this.props
+        this.onSearch()
+        dispatch({
+            type:'itemSetting/tagDict_getPatientTag',
+            payload:''
+
+        })
     }
     onSearch=()=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'itemSetting/tagDict_getRegistrationTag',
+            payload:{tagList:[]}
+        })
+    }
+    closeModal=()=>{
+        this.setState({visible:false,type:'',record:{}})
+    }
+    open=()=>{
+        this.setState({visible:true,type:'add'})
+    }
+    del=(record)=>{
 
     }
-    closeModal=()=>{}
-    opne=()=>{
-        this.setState({})
+    edit=(record)=>{
+        this.setState({visible:true,type:'edit',record})
     }
 
 
@@ -104,10 +136,10 @@ class ItemSetting extends React.Component {
                 <div className="research-body-content">
                     {/* 主体 */}
                     <div className="research-body-content-body">
-                        <CreateDra visible={this.state.visible} closeModal={this.closeModal} search={this.search}/>
+                        <CreateDra visible={this.state.visible} closeModal={this.closeModal} onSearch={this.onSearch} type={this.state.type} record={this.state.record}/>
                         <Table 
                           columns={this.columns}
-                        //   dataSource={}
+                          dataSource={this.props.itemSetting.itemList}
                         >
 
                         </Table>

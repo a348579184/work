@@ -7,7 +7,7 @@
 
 import React, { Fragment } from 'react';
 import router from 'umi/router';
-import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox } from 'antd';
+import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox,Popconfirm } from 'antd';
 import CreateDra from '@/containers/StaffManagement/CreateDra'
 import axios from 'axios';
 import PropTypes from 'prop-types';
@@ -92,10 +92,47 @@ class StaffManagementResearch extends React.Component {
             key:'updateName',
             dataIndex:'updateName',
             ellipsis: true
+        },
+        {
+            title:'操作',
+            width:100,
+            key:'cz',
+            dataSource:'cz',
+            render:(text,record,index)=>{
+                return <div>
+                           <a>修改</a>
+                           <Popconfirm
+                                title="确认删除?"
+                                onConfirm={()=>this.del(record)}
+                                // onCancel={cancel}
+                                okText='确认'
+                                cancelText="取消"
+                            >
+                                <a style={{color:'red',marginLeft:'8px'}}>删除</a>
+                            </Popconfirm>
+                           
+                       </div>
+            }
         }
     ]
     componentDidMount(){
         this.search()
+    }
+    del=(record)=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'staffManagement/staffDict_delStaffDictById',
+            payload:record,
+            callback:res=>{
+                if(res.success){
+                    message.success('删除成功')
+                    this.search()
+
+                }else{
+                    message.error(res.msg)
+                }
+            }
+        })
     }
     closeModal=()=>{
         this.setState({visible:false})
@@ -113,7 +150,7 @@ class StaffManagementResearch extends React.Component {
         })
     }
     createStaff=()=>{
-        this.setState({visible:true})
+        this.setState({visible:true,type:'add'})
     }
 
 
@@ -141,10 +178,10 @@ class StaffManagementResearch extends React.Component {
                     {/* 主体 */}
                     <div className="research-body-content-body">
                         <div className={'searchCondition'}>
-                        <CreateDra visible={this.state.visible} closeModal={this.closeModal} search={this.search}/>
+                        <CreateDra visible={this.state.visible} closeModal={this.closeModal} search={this.search} type={'edit'}/>
                             <div>
                                 <Search
-                                    placeholder="input search text"
+                                    placeholder="姓名或手机号"
                                     value={this.state.searchCondition.input}
                                     onChange={e => {
                                         let obj=this.state.searchCondition
