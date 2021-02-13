@@ -13,7 +13,9 @@ import { platformKey, isSuccess, platformToken } from '../utils/constant';
 import { userInfo } from 'os';
 import { message } from 'antd';
 import pathToRegexp from 'path-to-regexp';
-const { tagDict_getRegistrationTag,titalDict_saveTitalDict,titalDict_updateTitalDict,tagDict_getPatientTag} = api;
+const { tagDict_getRegistrationTag,titalDict_saveTitalDict,
+    titalDict_updateTitalDict,tagDict_getPatientTag,
+    titalDict_deleteTitalDict} = api;
 
 
 export default {
@@ -25,6 +27,12 @@ export default {
     },
 
     effects: {
+        *titalDict_deleteTitalDict({ payload,callback}, { call, put }) {
+            let form=new FormData()
+            form.append('id',payload.id)
+            let res=yield call(titalDict_deleteTitalDict,form)
+            callback(res)
+        },
         *tagDict_getPatientTag({ payload,callback}, { call, put }) {
             let res=yield call(tagDict_getPatientTag,payload)
             yield put({

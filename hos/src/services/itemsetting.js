@@ -9,7 +9,8 @@ const platform = {
   tagDict_getRegistrationTag:'POST /api/tagDict/getRegistrationTag',
   titalDict_saveTitalDict:`POST /api/titalDict/saveTitalDict`,
   titalDict_updateTitalDict:`POST /api/titalDict/updateTitalDict`,
-  tagDict_getPatientTag:'POST /api/tagDict/getPatientTag'
+  tagDict_getPatientTag:'POST /api/tagDict/getPatientTag',
+  titalDict_deleteTitalDict:`POST /api/titalDict/deleteTitalDict`,
 }
 
 const APIFunction = {}

@@ -31,7 +31,8 @@ class ItemSetting extends React.Component {
         this.state = {
             visible:false,
             type:'',
-            record:{}
+            record:{},
+            input:''
         };
     }
     columns=[
@@ -102,7 +103,20 @@ class ItemSetting extends React.Component {
         this.setState({visible:true,type:'add'})
     }
     del=(record)=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'itemSetting/titalDict_deleteTitalDict',
+            payload:{id:record.id},
+            callback:res=>{
+                if(res.success){
+                    message.success('删除成功')
+                    this.onSearch()
 
+                }else{
+                    message.error(res.msg)
+                }
+            }
+        })
     }
     edit=(record)=>{
         this.setState({visible:true,type:'edit',record})
@@ -110,9 +124,9 @@ class ItemSetting extends React.Component {
 
 
     render() {
-        const { children } = this.props;
+        const { children ,itemSetting} = this.props;
         const title = this.props.title;
-        
+        const {input}=this.state
         return (
             <div className="staffManagement">
                 {/* 搜索头部 */}
@@ -126,6 +140,9 @@ class ItemSetting extends React.Component {
                     {/* 右侧搜索项 */}
                     <div className="right-research">
                         <Search
+                           placeholder={'就诊事项名称或标签'}
+                           onPressEnter={e=>this.setState({input:e.target.value})}
+                           onSearch={e=>this.setState({input:e.target.value})}
                                     
                             style={{ width: 200 ,marginRight:20,marginTop:-1}}
                         /> 
@@ -139,7 +156,7 @@ class ItemSetting extends React.Component {
                         <CreateDra visible={this.state.visible} closeModal={this.closeModal} onSearch={this.onSearch} type={this.state.type} record={this.state.record}/>
                         <Table 
                           columns={this.columns}
-                          dataSource={this.props.itemSetting.itemList}
+                          dataSource={this.props.itemSetting.itemList.filter(val=>{return input==''||val.titalName.indexOf(input)>=0||val.tagName?.indexOf(input)>=0})}
                         >
 
                         </Table>

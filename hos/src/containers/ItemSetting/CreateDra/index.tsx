@@ -28,12 +28,11 @@ class CreateDra extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchCondition:{
-                input:'',
-                state:'3',
-                tagType:'',
-                tagName:''
-            }
+            input:'',
+            state:'3',
+            tagType:'',
+            tagName:'',
+            tagCode:'',
         };
     }
     componentDidMount(){}
@@ -47,7 +46,7 @@ class CreateDra extends React.Component {
                   let obj={
                             "id": '',
                             "tagCode": "",
-                            tagName:values.tagName,
+                            tagName:this.state.tagType=='new'?values.tagNameNew:values.tagName,
                             "time": values.time,
                             "titalCode": '',
                             "titalName": values.titalName
@@ -75,6 +74,16 @@ class CreateDra extends React.Component {
                             "titalCode": values.titalCode,
                             "titalName": values.titalName
                         }
+                    if(this.state.tagType=='new'){
+                        obj.tagName=values.tagNameNew
+                        obj.tagCode=''
+                    }else if(this.state.tagCode==''){
+                        obj.tagName=record.tagName
+                        obj.tagCode=record.tagCode
+                    }else if(this.state.tagCode!=''){
+                        obj.tagName=values.tagName
+                        obj.tagCode=this.state.tagCode
+                    }
                    dispatch({
                        type:'itemSetting/titalDict_updateTitalDict',
                        payload:obj,
@@ -96,6 +105,8 @@ class CreateDra extends React.Component {
     selOnchange=(e,option)=>{
         if(e=='new'){
             this.setState({tagType:'new'})
+        }else{
+            this.setState({tagCode:option.props.item.tagCode})
         }
     }
     closeModal=()=>{
@@ -190,7 +201,12 @@ class CreateDra extends React.Component {
                         })(<Select onChange={this.selOnchange}>
                             <Option key='new'>
                                 新增标签   
-                            </Option>   
+                            </Option>
+                            {
+                                this.props.itemSetting.tagList.map(val=><Option key={val.tagName} item={val}>
+                                    {val.tagName}
+                                </Option>)
+                            } 
                         </Select>)}
                     </Form.Item>
                     }
