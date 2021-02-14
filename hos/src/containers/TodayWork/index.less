@@ -1,0 +1,226 @@
+.todaywork {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    overflow: hidden;
+  
+    .research-head {
+      width: 100%;
+      min-width: 1180px;
+      height: 56px;
+      border-bottom: 3px solid #eee;
+  
+      .left-title {
+        margin: 12px;
+        display: inline-block;
+  
+        span {
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+  
+      .right-research {
+        //   display: inline-block;
+        height: 56px;
+        float: right;
+        margin-right:10px;
+        padding-top: 10px;
+  
+        div {
+          display: inline-block;
+        }
+  
+        .right-research-type {
+          label {
+            margin-right: 5px;
+          }
+  
+          div {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-executestatus {
+          margin-left: 10px;
+          .ant-checkbox-inner {
+              border: 1px solid #999;
+          }
+          label {
+            margin-right: 5px;
+          }
+  
+          div {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-large-executestatus {
+          width:230px;
+          margin-left: 10px;
+  
+          label {
+            margin-right: 5px;
+          }
+  
+          div {
+            display: inline-block;
+            width: 120px;
+            border-radius: 2px;
+            padding-right: 15px;
+          }
+        }
+  
+        .right-research-paystatus {
+          margin-left: 10px;
+  
+          label {
+            margin-right: 5px;
+          }
+  
+          div {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-daterange {
+          margin-left: 10px;
+  
+          label {
+            margin-right: 5px;
+          }
+  
+          div {
+            display: inline-block;
+            width: 120px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-input {
+          margin-left: 10px;
+          width: 200px;
+  
+          label {
+            margin-right: 5px;
+          }
+  
+          div {
+            display: inline-block;
+            width: 200px;
+            border-radius: 2px;
+            padding-right: 15px;
+          }
+        }
+  
+        .right-research-btn {
+          margin-left: 10px;
+  
+          button {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+            margin-right: 10px;
+            border: 1px solid #999;
+          }
+        }
+      }
+    }
+  
+    .research-body-content {
+      background-color: #ffffff;
+      display: inline-block;
+      width: 100%;
+      height: calc(100% - 56px);
+      overflow: hidden;
+  
+      .research-body-content-body {
+        overflow: hidden;
+        height: calc(100% - 20px);
+        padding: 6px;
+        .searchCondition{
+            padding: 10px;
+            display: flex;
+            &>div{
+              font-size: 20px;
+              margin-right: 30px; 
+              text-align: center;
+              &>div{
+                padding:10px;
+              }  
+            }
+        }
+      }
+  
+      .research-body-content-footer {
+        position: relative;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 9;
+        background-color: #fff;
+        box-shadow: 0px -2px 5px 0px rgba(0, 0, 0, 0.15);
+        border: 1px solid #eee;
+        height: 50px;
+        width: 100%;
+        text-align: right;
+        vertical-align: middle;
+        padding: 8px 10px 0 0;
+  
+        button {
+          background: rgba(0, 133, 233, 1);
+          border-radius: 2px;
+          margin: 0 10px;
+          width: 80px;
+        }
+  
+        .btn-invalid {
+          background-color: #ffffff;
+        }
+      }
+    }
+  }
+  //嵌套表格
+  .booked-table{
+    th{
+      background-color: #F2F6FA;
+    }
+    background-color:#fff;
+    .ant-table-row-click{
+      background-color: rgba(31, 199, 250, 0.479);
+      color:#000;
+    }
+    .child-table{
+      //background-color: #F3F5F7;
+      th,tr{
+        background-color: #F3F5F7;
+      }
+      &-footer{
+        height:20px;
+        width: 100%;
+        .left-cost{
+          float:left;
+          color:#000;
+        }
+        .right-operation{
+          float: right;
+          size:14px;
+          color:#2295F7;
+          padding:2px;
+          Button{
+            background-color:#F2F6FA;
+            border:none;
+          }
+        }
+  
+      }
+    }
+  
+  }
+  

@@ -74,6 +74,25 @@ class LeftMenu extends React.Component {
                               </Menu.Item>
                             </SubMenu>
 
+                            <SubMenu
+                                key="TodayWork"
+                                title={
+                                    <Fragment>
+                                        <Icon className="m-a-icon"/>
+                                        <span>今日工作</span>
+                                    </Fragment>
+                                }
+
+                            >
+                                
+                              <Menu.Item key="/TodayWork/TodayWork">
+                                <Link to="/TodayWork/TodayWork">
+                                  <span>员工管理</span>
+                                </Link>
+                              </Menu.Item>
+                              
+                            </SubMenu>
+
                             
 
 
