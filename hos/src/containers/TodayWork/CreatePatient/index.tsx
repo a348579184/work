@@ -40,6 +40,39 @@ class CreateDra extends React.Component {
         const {dispatch}=this.props
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                let obj={
+                    "patientMaster": {
+                      "addrCity": "",
+                      "addrCounty": "",
+                      "addrDetailed": values.addrDetailed,
+                      "addrProvince": "",
+                      "age": values.age,
+                      "areaCode": "",
+                      "birth": "",
+                      "clinicDate": values.clinicDate,
+                      "clinicDoctor": values.clinicDoctor,
+                      "clinicTagId": "",
+                      "clinicType": 0,
+                      "id": 0,
+                      "identity": "",
+                      "lastDate": "",
+                      "name": values.name,
+                      "patientId": values.patientId,
+                      "phone": "string",
+                      "remark": "string",
+                      "sex": values.sex,
+                      "tel": values.tel,
+                      "vipCode": 0
+                    },
+                    "tagDictList": values.tagDictList
+                  }
+                  dispatch({
+                      type:'today/patientMaster_savePatientMaster',
+                      payload:obj,
+                      callback:res=>{
+                          
+                      }
+                  })
             }
           });
     }
@@ -173,8 +206,9 @@ class CreateDra extends React.Component {
                     </Form.Item>
                     <Form.Item label="标签">
                         {getFieldDecorator('tagDictList', {
+                            initialValue:[],
                         })(
-                            <Select>
+                            <Select mode="multiple">
                                 {
                                     this.props.today.tagList.filter(val=>val.tagCode!='').map(val=>{
                                         return <Option key={val.tagCode}>

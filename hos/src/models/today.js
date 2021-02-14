@@ -5,7 +5,7 @@ import { platformKey, isSuccess, platformToken } from '../utils/constant';
 import { userInfo } from 'os';
 import { message } from 'antd';
 import pathToRegexp from 'path-to-regexp';
-const { patientMaster_getpatientId} = api;
+const { patientMaster_getpatientId,patientMaster_savePatientMaster} = api;
 
 
 export default {
@@ -17,6 +17,13 @@ export default {
     },
 
     effects: {
+        *patientMaster_savePatientMaster({ payload,callback}, { call, put }){
+            // let form=new FormData()
+            // form.append('tagDictList',payload.tagDictList)
+            // form.append('patientMaster',payload.patientMaster)
+            let res=yield call(patientMaster_savePatientMaster,payload)
+            callback(res)
+        },
         *patientMaster_getpatientId({ payload,callback}, { call, put }){
             let res=yield call(patientMaster_getpatientId)
             if(res.success){
