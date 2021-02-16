@@ -19,60 +19,72 @@ import './index.less';
 message.config({
     duration:3
 })
-const { Search } = Input;
+const { Search,TextArea } = Input;
 const { Option } = Select;
+
 @Form.create()
 @withRouter
 @connect(({ loading,  staffManagement,today,itemSetting}) => ({ loading, staffManagement,today,itemSetting}))
-class CreateDra extends React.Component {
+class CreateRegister extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             searchCondition:{
                 input:'',
                 state:'3',
-            }
+                patientDetail:{}
+            },
         };
+        // this.selPatient=debounce(this.selPatient,500)
     }
     handleOk=()=>{
         // let obj=this.props.form.getFieldsValue()
         // console.log(obj)
+        let detail=this.state.patientDetail
         const {dispatch}=this.props
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 let obj={
-                    "patientMaster": {
-                      "addrCity": "",
-                      "addrCounty": "",
-                      "addrDetailed": values.addrDetailed,
-                      "addrProvince": "",
-                      "age": values.age,
-                      "areaCode": "",
-                      "birth": "",
-                      "clinicDate": values.clinicDate==null||values.clinicDate==''?'':'',
-                      "clinicDoctor": values.clinicDoctor,
-                      "clinicTagId": "",
-                      "clinicType": 0,
-                      "id": 0,
-                      "identity": "",
-                      "lastDate": "",
-                      "name": values.name,
-                      "patientId": values.patientId,
-                      "phone": values.phone,
-                      "remark": "",
-                      "sex": values.sex,
-                      "tel": '',
-                      "vipCode": 0
-                    },
-                    "tagDictList": values.tagDictList
+                    "addrCity": "",
+                    "addrCounty": "",
+                    "addrDetailed": detail?.addrDetailed,
+                    "addrProvince": "",
+                    "age": detail?.age,
+                    "areaCode": "",
+                    "birth": detail?.birth,
+                    "clinicDate": detail?.clinicDate,
+                    "clinicDoctor": detail?.clinicDoctor,
+                    "clinicState": detail?.clinicState,
+                    "clinicTag": detail?.clinicTag,
+                    "clinicTagId": "",
+                    "clinicType": 0,
+                    "id": 0,
+                    "identity": "",
+                    "lastDate": "",
+                    "name": detail?.name,
+                    "operationDate": '',
+                    "patientId": detail.patientId,
+                    "phone": detail?.phone,
+                    "registrationDate": moment(new Date()).format('YYYY-MM-DD'),
+                    
+                    "sex": 0,
+                    ...detail,
+                    "remark": values.remark,
+                    // clinicDate:'',operationDate:'',registrationDate:'',lastDate:'',
+                    "tagDictList": values?.tagDictList,
+                    "tel": "",
+                    "vipCode": 0,
+                    registrationDoctor:values.registrationDoctor
                   }
                   dispatch({
-                      type:'today/patientMaster_savePatientMaster',
+                      type:'today/registrationMaster_saveRegistrationMaster',
                       payload:obj,
                       callback:res=>{
                           if(res.success){
-                              message.success('新增患者成功！')
+                              message.success('新增挂号成功！')
+                              this.setState({patientDetail:{}})
                               this.closeModal()
+                              this.props.search()
                           }else{
                               message.error(res.msg)
                           }
@@ -85,11 +97,32 @@ class CreateDra extends React.Component {
         this.props.closeModal()
         
     }
+    selPatient=(e)=>{
+        this.props.dispatch({
+            type:'today/patientMaster_getPatientMasterByDto',
+            payload:{
+                "input": e,
+                "selectStatus": 0
+            },
+            callback:res=>{
+                
+            }
+        })
+    }
+    patientChange=(e,option)=>{
+        let obj=option.props.item
+        this.setState({patientDetail:obj})
+        this.props.form.setFieldsValue({
+            phone: obj.phone,patientId:obj.patientId,sex:obj.sex,
+          });
+        
+    }
     
     
 
 
     render() {
+        const {today}=this.props
         const { getFieldDecorator } = this.props.form;
         let userInfo=sessionStorage.getItem('userInfo')
         userInfo=JSON.parse(userInfo)
@@ -117,7 +150,7 @@ class CreateDra extends React.Component {
           };
         return (
             <Modal
-                title="新增患者"
+                title="新增挂号"
                 visible={this.props.visible}
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
@@ -138,11 +171,29 @@ class CreateDra extends React.Component {
                                     message: '请输入姓名！',
                                 },
                                 ],
-                        })(<Input />)}
+                        })(
+                            <Select 
+                            // onSearch={this.selPatient}
+                            filterOption={(input, option) =>
+                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                            }
+                            onChange={this.patientChange}
+                              
+                             showSearch>
+                                {
+                                    today.patientList.map(val=>{
+                                        return <Option key={val.id} title={val.name} item={val}>
+                                            {val.name+'('+val.patientId+')'+'  '+val.tel}
+                                            </Option>
+                                    })
+                                    
+                                }
+                                
+                            </Select>
+                        )}
                     </Form.Item>
                     <Form.Item label="病历号">
                         {getFieldDecorator('patientId', {
-                            initialValue:this.props.today.pid,
                             rules: [
                                 // {
                                 //     type: 'email',
@@ -167,7 +218,7 @@ class CreateDra extends React.Component {
                                     message: '请输入手机号',
                                 },
                                 ],
-                        })(<Input />)}
+                        })(<Input disabled/>)}
                     </Form.Item>
                     <Form.Item label="性别">
                         {getFieldDecorator('sex', {
@@ -179,7 +230,7 @@ class CreateDra extends React.Component {
                                 // },
                                 
                                 ],
-                        })(<Radio.Group  name="radiogroup">
+                        })(<Radio.Group  name="radiogroup" disabled>
                         <Radio value={1}>男</Radio>
                         <Radio value={2}>女</Radio>
                         
@@ -187,46 +238,51 @@ class CreateDra extends React.Component {
                     </Form.Item>
                     <Form.Item label="年龄">
                         {getFieldDecorator('age', {
-                        })(<Input />)}
+                        })(<Input disabled/>)}
                     </Form.Item>
-                    <Form.Item label="地址">
-                        {getFieldDecorator('addrDetailed', {
-                        })(<Input />)}
+                    <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
+                    <Form.Item label="就诊医生">
+                        {getFieldDecorator('registrationDoctor', {
+                        })(<Select>
+                            {
+                                this.props.staffManagement.staffList.filter(val=>val.job==1).map(val=>{
+                                    return <Option key={val.id}>
+                                        {val.userName}
+                                    </Option>
+                                })
+                            }
+                        </Select>)}
                     </Form.Item>
-                    <Form.Item label="初诊医生">
-                        {getFieldDecorator('clinicDoctor', {
-                        })(
-                            <Select>
-                                {
-                                    this.props.staffManagement.staffList.filter(val=>val.job==1).map(val=>{
-                                        return <Option key={val.id}>
-                                            {val.userName}
-                                        </Option>
-                                    })
-                                }
-                            </Select>
-                        )}
-                    </Form.Item>
-                    <Form.Item label="初诊日期">
+                    <Form.Item label="就诊日期">
                         {getFieldDecorator('clinicDate', {
-                        })(
-                            <DatePicker/>
-                        )}
+                            initialValue:moment(new Date())
+                        })(<DatePicker disabled/>)}
                     </Form.Item>
-                    <Form.Item label="标签">
+
+                    <Form.Item label="就诊事项">
                         {getFieldDecorator('tagDictList', {
                             initialValue:[],
                         })(
-                            <Select mode="multiple">
+                            <Select 
+                            mode="multiple"
+                            filterOption={(input, option) =>
+                                option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                              }
+                            >
                                 {
-                                    this.props.today.tagList.filter(val=>val.tagCode!='').map(val=>{
-                                        return <Option key={val.tagCode}>
-                                            {val.tagName}
+                                    this.props.itemSetting.itemList.map(val=>{
+                                        return <Option key={val.id}>
+                                            {val.titalName}
                                         </Option>
                                     })
                                 }
                             </Select>
                         )}
+                    </Form.Item>
+                    <Form.Item label="备注">
+                        {getFieldDecorator('remark', {
+                            // initialValue:moment(new Date())
+                        })(<TextArea rows={4} />)}
                     </Form.Item>
                     
 
@@ -237,4 +293,4 @@ class CreateDra extends React.Component {
     }
 }
 
-export default CreateDra;
+export default CreateRegister;

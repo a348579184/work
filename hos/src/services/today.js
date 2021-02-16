@@ -7,6 +7,10 @@ import {API_EMR_TREAT,API} from '../utils/constant';
 const platform = {
   patientMaster_getpatientId:'POST /api/patientMaster/getpatientId',
   patientMaster_savePatientMaster:`POST /api/patientMaster/savePatientMaster`,
+  registrationMaster_getRegistrationMaster:`POST /api/registrationMaster/getRegistrationMaster`,
+  patientMaster_getPatientMasterByDto:`POST /api/patientMaster/getPatientMasterByDto`,
+  registrationMaster_saveRegistrationMaster:`POST /api/registrationMaster/saveRegistrationMaster`,
+  registrationMaster_getHeadline:`POST /api/registrationMaster/getHeadline`,
 }
 
 const APIFunction = {}

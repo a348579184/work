@@ -87,7 +87,7 @@ class LeftMenu extends React.Component {
                                 
                               <Menu.Item key="/TodayWork/TodayWork">
                                 <Link to="/TodayWork/TodayWork">
-                                  <span>员工管理</span>
+                                  <span>今日工作</span>
                                 </Link>
                               </Menu.Item>
                               

@@ -9,6 +9,7 @@ import React, { Fragment } from 'react';
 import router from 'umi/router';
 import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox,Popconfirm } from 'antd';
 import CreatePatient from '@/containers/TodayWork/CreatePatient';
+import CreateRegister from '@/containers/TodayWork/CreateRegister';
 import { connect } from 'dva';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
@@ -22,7 +23,7 @@ const { Search } = Input;
 const { Option } = Select;
 
 @withRouter
-@connect(({ loading,  staffManagement}) => ({ loading, staffManagement}))
+@connect(({ loading,  staffManagement,today}) => ({ loading, staffManagement,today}))
 class StaffManagementResearch extends React.Component {
     constructor(props) {
         super(props);
@@ -49,15 +50,16 @@ class StaffManagementResearch extends React.Component {
         },{
             title:'病历号',
             width:140,
-            key:'userName',
-            dataIndex:'userName',
+            key:'patientId',
+            dataIndex:'patientId',
             ellipsis: true
         },{
             title:'性别',
             width:50,
             key:'sex',
             dataIndex:'sex',
-            ellipsis: true
+            ellipsis: true,
+            render:text=>text==2?'女':'男'
         },{
             title:'年龄',
             width:60,
@@ -74,34 +76,49 @@ class StaffManagementResearch extends React.Component {
         },{
             title:'医生',
             width:80,
-            key:'createName',
-            dataIndex:'createName',
+            key:'registrationDoctor',
+            dataIndex:'registrationDoctor',
             ellipsis: true
         },{
             title:'类型',
             width:60,
-            key:'updateName',
-            dataIndex:'updateName',
-            ellipsis: true
+            key:'clinicType',
+            dataIndex:'clinicType',
+            ellipsis: true,
+            render:text=>text==1?'初诊':'复诊'
         },{
             title:'就诊事项',
             width:100,
             key:'updateName',
             dataIndex:'updateName',
-            ellipsis: true
+            ellipsis: true,
+            render:text=>{
+                if(text!=''&&text!=null){
+                    text=JSON.parse(text)
+                    text=text.join(';')
+                }
+            }
         },{
             title:'时间',
             width:170,
-            key:'updateName',
-            dataIndex:'updateName',
+            key:'registrationDate',
+            dataIndex:'registrationDate',
             ellipsis: true
         },{
             title:'状态',
             width:80,
-            key:'updateName',
-            dataIndex:'updateName',
+            key:'clinicState',
+            dataIndex:'clinicState',
             ellipsis: true,
             render:text=>{
+                let str=''
+                if(text==1){return '已挂号'}
+                else if(text==2){
+                    return <div style={{color:'red'}}>治疗中</div>
+                }
+                else if(text==1){
+                    return <div style={{color:'#11abda'}}>已完成</div>
+                }
 
             }
         },
@@ -149,15 +166,11 @@ class StaffManagementResearch extends React.Component {
     }
     search=()=>{
         const {dispatch}=this.props
-        let obj=this.state.searchCondition
-        // dispatch({
-        //     type:'staffManagement/staffDict_getStaffDict',
-        //     payload:{
-        //         status:obj.state==3?'':obj.state,
-        //         input:obj.input,
-        //         hospCode:sessionStorage.getItem('hospCode')
-        //     }
-        // })
+        dispatch({
+            type:'today/registrationMaster_getRegistrationMaster',
+            
+        })
+        dispatch({type:'today/registrationMaster_getHeadline',})
     }
     popen=()=>{
         const {dispatch}=this.props
@@ -171,12 +184,31 @@ class StaffManagementResearch extends React.Component {
         })
         
     }
+    ropen=()=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'today/patientMaster_getPatientMasterByDto',
+            payload:{
+                "input": "",
+                "selectStatus": 0
+            },
+            callback:res=>{
+                
+            }
+        })
+        dispatch({
+            type:'itemSetting/tagDict_getRegistrationTag',
+            payload:{tagList:[]}
+        })
+        this.setState({rvisible:true})
+        
+    }
 
 
     render() {
         const { children } = this.props;
         const title = this.props.title;
-        const {staffManagement}=this.props
+        const {today}=this.props
         // const myDisabled=sessionStorage.getItem('platformToken')=='appointmentSystem'
         const myDisabled=false
         return (
@@ -189,8 +221,8 @@ class StaffManagementResearch extends React.Component {
                     </div>
                     {/* 右侧搜索项 */}
                     <div className="right-research">
-                        <Button type='primary' onClick={this.createStaff} style={{marginRight:10}}>新增挂号</Button>
-                        <Button type='primary' onClick={this.popen}>新增员工</Button>
+                        <Button type='primary' onClick={this.ropen} style={{marginRight:10}}>新增挂号</Button>
+                        <Button type='primary' onClick={this.popen}>新增患者</Button>
                     </div>
                 </div>
                 {/* 搜索框包裹内容 */}
@@ -199,12 +231,13 @@ class StaffManagementResearch extends React.Component {
                     <div className="research-body-content-body">
                         <div className={'searchCondition'}>
                         <CreatePatient visible={this.state.pvisible} closeModal={this.closeModal} search={this.search}/>
+                        <CreateRegister visible={this.state.rvisible} closeModal={this.closeModal} search={this.search}/>
                            <div>
                                <div>
                                    今日新增患者
                                </div>
                                <div>
-                                   20人
+                                   {today.titleObj.patient}人
                                </div>
                            </div>
                            <div>
@@ -212,7 +245,7 @@ class StaffManagementResearch extends React.Component {
                                    今日挂号
                                </div>
                                <div>
-                                   20人
+                                   {today.titleObj.registration}人
                                </div>
                            </div>
                            <div>
@@ -228,7 +261,7 @@ class StaffManagementResearch extends React.Component {
                     
                         <Table 
                           columns={this.columns}
-                          dataSource={staffManagement.staffList}
+                          dataSource={today.registerList}
                         >
 
                         </Table>
