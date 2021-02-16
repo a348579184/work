@@ -10,6 +10,7 @@ import router from 'umi/router';
 import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox,Popconfirm } from 'antd';
 import CreatePatient from '@/containers/TodayWork/CreatePatient';
 import CreateRegister from '@/containers/TodayWork/CreateRegister';
+import DetailDra from '@/containers/TodayWork/DetailDra';
 import { connect } from 'dva';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
@@ -232,6 +233,7 @@ class StaffManagementResearch extends React.Component {
                         <div className={'searchCondition'}>
                         <CreatePatient visible={this.state.pvisible} closeModal={this.closeModal} search={this.search}/>
                         <CreateRegister visible={this.state.rvisible} closeModal={this.closeModal} search={this.search}/>
+                        <DetailDra visible={this.state.dvisible} closeModal={this.closeModal} search={this.search}/>
                            <div>
                                <div>
                                    今日新增患者
