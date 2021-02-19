@@ -34,6 +34,7 @@ class StaffManagementResearch extends React.Component {
                 state:'3',
                 pvisible:false,
                 rvisible:false,
+                dvisible:false
             }
         };
     }
@@ -117,7 +118,7 @@ class StaffManagementResearch extends React.Component {
                 else if(text==2){
                     return <div style={{color:'red'}}>治疗中</div>
                 }
-                else if(text==1){
+                else if(text==3){
                     return <div style={{color:'#11abda'}}>已完成</div>
                 }
 
@@ -163,12 +164,13 @@ class StaffManagementResearch extends React.Component {
     }
     
     closeModal=()=>{
-        this.setState({pvisible:false,rvisible:false})
+        this.setState({pvisible:false,rvisible:false,dvisible:false})
     }
     search=()=>{
         const {dispatch}=this.props
         dispatch({
             type:'today/registrationMaster_getRegistrationMaster',
+            payload:{hospCode:sessionStorage.getItem('hospCode')}
             
         })
         dispatch({type:'today/registrationMaster_getHeadline',})
@@ -185,13 +187,31 @@ class StaffManagementResearch extends React.Component {
         })
         
     }
+    dopen=(e,record)=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'today/registrationMaster_getRegistrationById',
+            payload:{
+                "hospCode": sessionStorage.getItem('hospCode'),
+                "patientId": record.patientId,
+                "visitId": record.visitId
+              },
+            callback:res=>{
+                if(res.success){
+                    this.setState({dvisible:true})
+                }
+            }
+        })
+        
+    }
     ropen=()=>{
         const {dispatch}=this.props
         dispatch({
             type:'today/patientMaster_getPatientMasterByDto',
             payload:{
                 "input": "",
-                "selectStatus": 0
+                "selectStatus": 0,
+                hospCode:sessionStorage.getItem('hospCode')
             },
             callback:res=>{
                 
@@ -264,6 +284,17 @@ class StaffManagementResearch extends React.Component {
                         <Table 
                           columns={this.columns}
                           dataSource={today.registerList}
+                          onRow={record => {
+                            return {
+                              onClick: event => {
+                                  this.dopen(event,record)
+                              }, // 点击行
+                            //   onDoubleClick: event => {},
+                            //   onContextMenu: event => {},
+                            //   onMouseEnter: event => {}, // 鼠标移入行
+                            //   onMouseLeave: event => {},
+                            };
+                          }}
                         >
 
                         </Table>

@@ -74,7 +74,8 @@ class CreateRegister extends React.Component {
                     "tagDictList": values?.tagDictList,
                     "tel": "",
                     "vipCode": 0,
-                    registrationDoctor:values.registrationDoctor
+                    registrationDoctor:values.registrationDoctor,
+                    hospCode:sessionStorage.getItem('hospCode')
                   }
                   dispatch({
                       type:'today/registrationMaster_saveRegistrationMaster',

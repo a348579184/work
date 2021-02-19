@@ -11,6 +11,8 @@ const platform = {
   patientMaster_getPatientMasterByDto:`POST /api/patientMaster/getPatientMasterByDto`,
   registrationMaster_saveRegistrationMaster:`POST /api/registrationMaster/saveRegistrationMaster`,
   registrationMaster_getHeadline:`POST /api/registrationMaster/getHeadline`,
+  registrationMaster_getRegistrationById:`POST /api/registrationMaster/getRegistrationById`,
+  registrationMaster_updateRegistrationStatus:`POST /api/registrationMaster/updateRegistrationStatus`,
 }
 
 const APIFunction = {}

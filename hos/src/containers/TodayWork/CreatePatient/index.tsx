@@ -49,7 +49,7 @@ class CreateDra extends React.Component {
                       "age": values.age,
                       "areaCode": "",
                       "birth": "",
-                      "clinicDate": values.clinicDate==null||values.clinicDate==''?'':'',
+                      "clinicDate": moment(new Date()).format('YYYY-MM-DD'),
                       "clinicDoctor": values.clinicDoctor,
                       "clinicTagId": "",
                       "clinicType": 0,
@@ -62,7 +62,8 @@ class CreateDra extends React.Component {
                       "remark": "",
                       "sex": values.sex,
                       "tel": '',
-                      "vipCode": 0
+                      "vipCode": 0,
+                      'hospCode':sessionStorage.getItem('hospCode')
                     },
                     "tagDictList": values.tagDictList
                   }
@@ -207,12 +208,12 @@ class CreateDra extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-                    <Form.Item label="初诊日期">
+                    {/* <Form.Item label="初诊日期">
                         {getFieldDecorator('clinicDate', {
                         })(
                             <DatePicker/>
                         )}
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item label="标签">
                         {getFieldDecorator('tagDictList', {
                             initialValue:[],

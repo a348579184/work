@@ -34,7 +34,9 @@ export default {
             callback(res)
         },
         *tagDict_getPatientTag({ payload,callback}, { call, put }) {
-            let res=yield call(tagDict_getPatientTag,payload)
+            let form = new FormData()
+            form.append('hospCode',sessionStorage.getItem('hospCode'))
+            let res=yield call(tagDict_getPatientTag,form)
             yield put({
                 type:'tagDict_getPatientTagR',
                 payload:res.result
