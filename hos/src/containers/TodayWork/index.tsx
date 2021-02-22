@@ -11,6 +11,7 @@ import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox,Popco
 import CreatePatient from '@/containers/TodayWork/CreatePatient';
 import CreateRegister from '@/containers/TodayWork/CreateRegister';
 import DetailDra from '@/containers/TodayWork/DetailDra';
+import MedicalRecord from '@/containers/TodayWork/MedicalRecord';
 import { connect } from 'dva';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
@@ -25,7 +26,7 @@ const { Option } = Select;
 
 @withRouter
 @connect(({ loading,  staffManagement,today}) => ({ loading, staffManagement,today}))
-class StaffManagementResearch extends React.Component {
+class TodayResearch extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -224,6 +225,16 @@ class StaffManagementResearch extends React.Component {
         this.setState({rvisible:true})
         
     }
+    openMedical=()=>{
+        this.setState({dvisible:false})
+        const {dispatch}=this.props
+        dispatch({type:'today/mvisibleChange',payload:true})
+    }
+    mDraClose=()=>{
+        this.setState({dvisible:true})
+        const {dispatch}=this.props
+        dispatch({type:'today/mvisibleChange',payload:false})
+    }
 
 
     render() {
@@ -253,7 +264,8 @@ class StaffManagementResearch extends React.Component {
                         <div className={'searchCondition'}>
                         <CreatePatient visible={this.state.pvisible} closeModal={this.closeModal} search={this.search}/>
                         <CreateRegister visible={this.state.rvisible} closeModal={this.closeModal} search={this.search}/>
-                        <DetailDra visible={this.state.dvisible} closeModal={this.closeModal} search={this.search}/>
+                        <DetailDra visible={this.state.dvisible} closeModal={this.closeModal} search={this.search} openMedical={this.openMedical}/>
+                        <MedicalRecord closeModal={this.mDraClose}/>   
                            <div>
                                <div>
                                    今日新增患者
@@ -306,4 +318,4 @@ class StaffManagementResearch extends React.Component {
     }
 }
 
-export default StaffManagementResearch;
+export default TodayResearch;

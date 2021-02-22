@@ -47,7 +47,8 @@ export default {
             tel: "",
             vipCode: '',
             visitId: '',
-        }
+        },
+        mvisible:false,
     },
 
     effects: {
@@ -122,6 +123,12 @@ export default {
     },
 
     reducers: {
+        mvisibleChange(state,action){
+            return {
+                ...state,
+                mvisible:action.payload
+            }
+        },
         registrationMaster_getRegistrationByIdR(state,action){
             return {
                 ...state,

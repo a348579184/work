@@ -65,6 +65,9 @@ class CreateRegister extends React.Component {
             }
         })
     }
+    onClose=()=>{
+        this.props.closeModal()
+    }
     
     
     
@@ -101,53 +104,16 @@ class CreateRegister extends React.Component {
             <Drawer
             title="详细信息"
             placement="right"
-            closable={false}
-            onClose={this.closeModal}
-            visible={this.props.visible}
+            closable={true}
+            onClose={this.onClose}
+            visible={this.props.today.mvisible}
             // visible={true}
-            width={'70%'}
-        >
-          <div style={{display:'flex',justifyContent:'space-between'}}>
-              <p>就诊流程</p>
-              <div>
-                  <a style={{marginRight:'10px',display:clinicState!=1?'none':'' }} onClick={()=>{this.change(2)}}>接诊</a>
-                  <a style={{display:clinicState==3?'none':''}} onClick={()=>{this.change(3)}}>完成</a>
-              </div>
-          </div>
-          <div style={{display:'flex',justifyContent:'space-between',fontSize:'12px'}}>
-              <p style={{color:clinicState==1?'#1890ff':''}}>候诊中</p>
-              <p style={{color:clinicState==2?'#1890ff':''}}>治疗中</p>
-              <p style={{color:clinicState==3?'#1890ff':''}}>已完成</p>
-          </div>
-          
-          <Progress percent={clinicState==1?0:(clinicState==2?50:100)} status="active" showInfo={false}/>
-          <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
-          <div style={{display:'flex'}}>
-              <h2>{name}</h2> <p style={{lineHeight:'36px',marginLeft:10}}>{patientId}</p>
-          </div>
-          <div className={'line-table'}>
-                <div>
-                  <div className={'title'}>性别：</div>
-                    <div>{sex==1?'男':'女'}</div>
-                </div>
-                    <div>
-                       <div className={'title'}>年龄：</div>
-                       <div>{}</div>
-                   </div>
-                   <div>
-                       <div className={'title'}>联系方式：</div>
-                       <div>{phone}</div>
-                   </div>
-          </div>
-          <div className={'line-table'}>
-                <div>
-                  <div className={'title'}>地址：</div>
-                    <div>{addrDetailed}</div>
-                </div>
-                    
-          </div>
-          <Button onClick={this.props.openMedical}>新增病历</Button>
-        </Drawer>
+            width={'100%'}
+            
+
+            >
+              
+            </Drawer>
             );
     }
 }
