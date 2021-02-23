@@ -7,7 +7,7 @@
 
 import React, { Fragment } from 'react';
 import router from 'umi/router';
-import { Select, Input, Button, Table, message,Radio, Checkbox, Modal,Form, DatePicker,Progress ,Drawer} from 'antd';
+import { Select, Input, Button, Table, message,Radio, Checkbox, Modal,Form, DatePicker,Progress ,Row,Col,Drawer} from 'antd';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
@@ -74,31 +74,7 @@ class CreateRegister extends React.Component {
 
 
     render() {
-        const {rDetail}=this.props.today
-        const {addrCity,
-        addrCounty,
-        addrProvince,
-        addrDetailed,
-        areaCode,
-        clinicState,
-        clinicTag,
-        clinicTagId,
-
-        clinicType,
-        hospCode,
-        id,
-        identity,
-        lastDate,
-        name,
-        operationDate,
-        patientId,
-        phone,
-        registrationDate,
-        remark,
-        sex,
-        tel,
-        vipCode,
-        visitId}=rDetail
+        
         
         return (
             <Drawer
@@ -109,9 +85,59 @@ class CreateRegister extends React.Component {
             visible={this.props.today.mvisible}
             // visible={true}
             width={'100%'}
-            
-
+            bodyStyle={{padding:0,display:'flex',alignItems:'center',justifyContent:'center',
+            backgroundColor: '#f0f0f0',overflow:'hidden'}}
             >
+                <div className={'medicalRecord'}>
+                <div style={{height:10}}></div>
+                    <Row>
+                        <Col span={4}>
+                            <label >姓名：</label>
+                            chenye
+                        </Col>
+                        <Col span={4}>
+                            <label >性别：</label>
+                            男
+                        </Col>
+                        <Col span={4}>
+                            <label >年龄：</label>
+                            55岁
+                        </Col>
+                        <Col span={6}>
+                            <label >病历号：</label>
+                            123456
+                        </Col>
+                        <Col span={6}>
+                        <Radio.Group  buttonStyle="solid">
+                            <Radio.Button value="large">初诊</Radio.Button>
+                            <Radio.Button value="default">复诊</Radio.Button>
+                        </Radio.Group>
+                        </Col>
+
+                    </Row>
+                    <div style={{height:20}}></div>
+                    <Row>
+                       <Col span={8}>
+                            <label >医生：</label>
+                            <Select style={{width:'160px'}}></Select>
+                        </Col>
+                        <Col span={8}>
+                            <label >就诊日期：</label>
+                            <DatePicker/>
+                        </Col>
+                    </Row>
+                    <div style={{height:10}}></div>
+                    <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
+                    <Row>
+                       <Col span={24}>
+                            <label >主诉：</label>
+                            <Input style={{border:'none'}}></Input>
+                        </Col>
+                        
+                    </Row>
+                </div>
+                
+
               
             </Drawer>
             );
