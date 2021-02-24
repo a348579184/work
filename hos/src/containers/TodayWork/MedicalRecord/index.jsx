@@ -78,15 +78,25 @@ class CreateRegister extends React.Component {
         
         return (
             <Drawer
-            title="详细信息"
+            title={
+                <div style={{display:'flex',justifyContent:'space-between',width:'calc(90vw)'}}>
+                    <p>填写病历</p>
+                    <div style={{position:'relative',top:-4}} >
+                        <Button type="primary" icon={'printer'} style={{marginRight:10}} >打印</Button>
+                        <Button type="primary">保存</Button>
+                        
+                    </div>
+                </div>
+            }
             placement="right"
+            
             closable={true}
             onClose={this.onClose}
             visible={this.props.today.mvisible}
             // visible={true}
             width={'100%'}
             bodyStyle={{padding:0,display:'flex',alignItems:'center',justifyContent:'center',
-            backgroundColor: '#f0f0f0',overflow:'hidden'}}
+            backgroundColor: '#f0f0f0'}}
             >
                 <div className={'medicalRecord'}>
                 <div style={{height:10}}></div>
@@ -131,7 +141,67 @@ class CreateRegister extends React.Component {
                     <Row>
                        <Col span={24}>
                             <label >主诉：</label>
-                            <Input style={{border:'none'}}></Input>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >现病史：</label>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >既往史：</label>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <div style={{height:10}}></div>
+                    <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >检查</label>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >X光检查：</label>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >诊断：</label>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >治疗计划：</label>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >治疗：</label>
+                            <TextArea></TextArea>
+                        </Col>
+                        
+                    </Row>
+                    <div style={{height:10}}></div>
+                    <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
+                    <Row style={{marginTop:20}}>
+                       <Col span={24}>
+                            <label >医嘱：</label>
+                            <TextArea></TextArea>
                         </Col>
                         
                     </Row>
