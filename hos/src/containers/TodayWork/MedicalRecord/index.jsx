@@ -14,6 +14,7 @@ import { connect } from 'dva';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 import withRouter from 'umi/withRouter';
+import ToothModal from '@/containers/TodayWork/MedicalRecord/ToothModal';
 
 import './index.less';
 message.config({
@@ -68,6 +69,12 @@ class CreateRegister extends React.Component {
     onClose=()=>{
         this.props.closeModal()
     }
+    openm=()=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'today/tvisibleChange',payload:true,
+        })
+    }
     
     
     
@@ -99,6 +106,10 @@ class CreateRegister extends React.Component {
             backgroundColor: '#f0f0f0'}}
             >
                 <div className={'medicalRecord'}>
+                    {
+                        this.props.today.tvisible?<ToothModal/>:''
+                    }
+                
                 <div style={{height:10}}></div>
                     <Row>
                         <Col span={4}>
@@ -138,6 +149,22 @@ class CreateRegister extends React.Component {
                     </Row>
                     <div style={{height:10}}></div>
                     <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
+                    <Row style={{height:50}}>
+                       <Col span={24}>
+                            <label >牙位：</label>
+                            <div style={{display:'flex',width:'400px',flexWrap:'wrap',paddingBottom:'10px',cursor:'pointer'}} 
+                                 className={'tooth'} onClick={this.openm}>
+                                <div style={{width:'50%',height:'50px'}}>
+                                    12345678
+                                </div>
+                                <div style={{width:'50%',height:'50px',borderLeft:'1px solid #11abda'}}></div>
+                                <div style={{width:'50%',height:'50px',borderTop:'1px solid #11abda'}}></div>
+                                <div style={{width:'50%',height:'50px',borderTop:'1px solid #11abda',borderLeft:'1px solid #11abda'}}></div>
+
+                            </div>
+                        </Col>
+                        
+                    </Row>
                     <Row>
                        <Col span={24}>
                             <label >主诉：</label>

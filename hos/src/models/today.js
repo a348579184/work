@@ -49,6 +49,7 @@ export default {
             visitId: '',
         },
         mvisible:false,
+        tvisible:false,
     },
 
     effects: {
@@ -127,6 +128,12 @@ export default {
             return {
                 ...state,
                 mvisible:action.payload
+            }
+        },
+        tvisibleChange(state,action){
+            return {
+                ...state,
+                tvisible:action.payload
             }
         },
         registrationMaster_getRegistrationByIdR(state,action){
