@@ -8,7 +8,8 @@ import pathToRegexp from 'path-to-regexp';
 const { patientMaster_getpatientId,patientMaster_savePatientMaster,
     registrationMaster_getRegistrationMaster,patientMaster_getPatientMasterByDto,
     registrationMaster_saveRegistrationMaster,registrationMaster_getHeadline,
-    registrationMaster_getRegistrationById,registrationMaster_updateRegistrationStatus
+    registrationMaster_getRegistrationById,registrationMaster_updateRegistrationStatus,
+    caseHistory_saveOrUpdateCaseHistory,caseHistory_getCaseHistoryById
 } = api;
 
 
@@ -16,6 +17,28 @@ export default {
     namespace: 'today',
 
     state: {
+        mrdetail:{
+            "age": "",
+            "assistant": "",
+            "clinicType": "",
+            "diagnose": "",
+            "doctorAdvice": "",
+            "historyOfPresentIllness": "",
+            "hospCode": "",
+            "id": 0,
+            "inspectionReport": "",
+            "name": "",
+            "patientId": "",
+            "previousHistory": "",
+            "rayExamination": "",
+            "registrationDate": "",
+            "registrationDoctor": "",
+            "registrationDoctorCode": "",
+            "sex": 0,
+            "symptom": "",
+            "treatment": "",
+            "visitId": ""
+          },
         pid:'',
         tagList:[],
         registerList:[],
@@ -53,6 +76,17 @@ export default {
     },
 
     effects: {
+        *caseHistory_saveOrUpdateCaseHistory({ payload,callback}, { call, put }){
+            let res=yield call(caseHistory_saveOrUpdateCaseHistory,payload)
+            callback(res)
+        },
+        *caseHistory_getCaseHistoryById({ payload,callback}, { call, put }){
+            let res=yield call(caseHistory_getCaseHistoryById,payload)
+            // if(res.success){
+            //     yield put({type:'caseHistory_getCaseHistoryByIdR',payload:res.result})
+            // }
+            callback(res)
+        },
         *registrationMaster_updateRegistrationStatus({ payload,callback}, { call, put }){
             let res=yield call(registrationMaster_updateRegistrationStatus,payload)
             callback(res)
@@ -124,6 +158,12 @@ export default {
     },
 
     reducers: {
+        caseHistory_getCaseHistoryByIdR(state,action){
+            return {
+                ...state,
+                mrdetail:action.payload
+            }
+        },
         mvisibleChange(state,action){
             return {
                 ...state,

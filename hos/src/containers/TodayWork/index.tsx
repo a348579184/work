@@ -229,6 +229,17 @@ class TodayResearch extends React.Component {
         this.setState({dvisible:false})
         const {dispatch}=this.props
         dispatch({type:'today/mvisibleChange',payload:true})
+        const {rDetail}=this.props.today
+        const {patientId,
+        visitId}=rDetail
+        // dispatch({
+        //     type:'today/caseHistory_getCaseHistoryById',
+        //     payload:{
+        //         "hospCode": sessionStorage.getItem('hospCode'),
+        //         "patientId": patientId,
+        //         "visitId": visitId
+        //       }
+        // })
     }
     mDraClose=()=>{
         this.setState({dvisible:true})
@@ -265,7 +276,7 @@ class TodayResearch extends React.Component {
                         <CreatePatient visible={this.state.pvisible} closeModal={this.closeModal} search={this.search}/>
                         <CreateRegister visible={this.state.rvisible} closeModal={this.closeModal} search={this.search}/>
                         <DetailDra visible={this.state.dvisible} closeModal={this.closeModal} search={this.search} openMedical={this.openMedical}/>
-                        <MedicalRecord closeModal={this.mDraClose}/>   
+                        {this.props.today.mvisible?<MedicalRecord closeModal={this.mDraClose}/>:''}   
                            <div>
                                <div>
                                    今日新增患者

@@ -44,7 +44,9 @@ class AddTooth extends React.Component {
         // this.selPatient=debounce(this.selPatient,500)
     }
     componentDidMount=()=>{
-        console.log(1)
+        console.log(this.props.tooth)
+        const {topright,topleft,bottomright,bottomleft}=this.props.tooth
+        this.setState({topright,topleft,bottomright,bottomleft})
     }
     closeModal=()=>{
         this.setState({
@@ -60,6 +62,11 @@ class AddTooth extends React.Component {
             type:'today/tvisibleChange',payload:false,
         })
     }
+    handleOk=()=>{
+        let {topright,topleft,bottomright,bottomleft}=this.state
+        this.props.onOk({topright,topleft,bottomright,bottomleft})
+        this.closeModal()
+    }
     
     
     
@@ -72,7 +79,7 @@ class AddTooth extends React.Component {
             <Modal
                 title="选择牙位"
                 visible={this.props.today.tvisible}
-                // onOk={this.handleOk}
+                onOk={this.handleOk}
                 onCancel={this.closeModal}
                 destroyOnClose={true}
                 bodyStyle={{height:400,}}

@@ -50,7 +50,7 @@ class CreateDra extends React.Component {
                       "areaCode": "",
                       "birth": "",
                       "clinicDate": moment(new Date()).format('YYYY-MM-DD'),
-                      "clinicDoctor": values.clinicDoctor,
+                      clinicDoctorCode: values.clinicDoctor,
                       "clinicTagId": "",
                       "clinicType": 0,
                       "id": 0,
@@ -67,6 +67,11 @@ class CreateDra extends React.Component {
                     },
                     "tagDictList": values.tagDictList
                   }
+                  this.props.staffManagement.staffList.map(val=>{
+                    if(val.id==obj.clinicDoctorCode){
+                        obj.clinicDoctorName=val.userName
+                    }
+                })
                   dispatch({
                       type:'today/patientMaster_savePatientMaster',
                       payload:obj,

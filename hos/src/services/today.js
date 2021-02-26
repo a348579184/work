@@ -5,6 +5,8 @@ import {API_EMR_TREAT,API} from '../utils/constant';
  * @description 写入接口需要拼接 const API_EMR_TREAT='/api/emr/treat' 前缀
 */
 const platform = {
+  caseHistory_saveOrUpdateCaseHistory:`POST /api/caseHistory/saveOrUpdateCaseHistory`,
+  caseHistory_getCaseHistoryById:`POST /api/caseHistory/getCaseHistoryById`,
   patientMaster_getpatientId:'POST /api/patientMaster/getpatientId',
   patientMaster_savePatientMaster:`POST /api/patientMaster/savePatientMaster`,
   registrationMaster_getRegistrationMaster:`POST /api/registrationMaster/getRegistrationMaster`,

@@ -74,9 +74,14 @@ class CreateRegister extends React.Component {
                     "tagDictList": values?.tagDictList,
                     "tel": "",
                     "vipCode": 0,
-                    registrationDoctor:values.registrationDoctor,
+                    registrationDoctorCode:values.registrationDoctor,
                     hospCode:sessionStorage.getItem('hospCode')
                   }
+                  this.props.staffManagement.staffList.map(val=>{
+                      if(val.id==obj.registrationDoctorCode){
+                          obj.registrationDoctor=val.userName
+                      }
+                  })
                   dispatch({
                       type:'today/registrationMaster_saveRegistrationMaster',
                       payload:obj,
