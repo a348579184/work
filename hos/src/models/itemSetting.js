@@ -37,6 +37,8 @@ export default {
             let form = new FormData()
             form.append('hospCode',sessionStorage.getItem('hospCode'))
             let res=yield call(tagDict_getPatientTag,form)
+            
+
             yield put({
                 type:'tagDict_getPatientTagR',
                 payload:res.result
@@ -53,6 +55,23 @@ export default {
         },
         *tagDict_getRegistrationTag({ payload,callback}, { call, put }) {
             let res=yield call(tagDict_getRegistrationTag,payload)
+            let arr=res.result==null?[]:res.result
+            let tagList=[],obj={}
+            arr.map(val=>{
+                if(obj[val.tagCode]){}
+                else{
+                    let u={
+                        tagName:val.tagName,
+                        tagCode:val.tagCode
+                    }
+                    tagList.push(u)
+                    obj[val.tagCode]=1
+                }
+            })
+            yield put({
+                type:'tagDict_getPatientTagR',
+                payload:tagList
+            })
             yield put({
                 type:'tagDict_getRegistrationTagR',
                 payload:res.result

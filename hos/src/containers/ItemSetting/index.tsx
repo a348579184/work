@@ -83,11 +83,11 @@ class ItemSetting extends React.Component {
     componentDidMount(){
         const {dispatch}=this.props
         this.onSearch()
-        dispatch({
-            type:'itemSetting/tagDict_getPatientTag',
-            payload:''
+        // dispatch({
+        //     type:'itemSetting/tagDict_getPatientTag',
+        //     payload:''
 
-        })
+        // })
     }
     onSearch=()=>{
         const {dispatch}=this.props

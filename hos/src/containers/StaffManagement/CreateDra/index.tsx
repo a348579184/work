@@ -34,53 +34,99 @@ class CreateDra extends React.Component {
             }
         };
     }
+    componentDidMount(){
+        if(this.props.type=='edit'){
+            console.log(this.props.record)
+            this.props.form.setFieldsValue({...this.props.record})
+        }
+    }
     handleOk=()=>{
         // let obj=this.props.form.getFieldsValue()
         // console.log(obj)
         const {dispatch}=this.props
         this.props.form.validateFields((err, values) => {
             if (!err) {
-              if(values.password!=values.passwordTwo){
-                  message.error('两次密码不一致，请确认！')
-                  return
-              }
-              let userInfo=sessionStorage.getItem('userInfo')
-               userInfo=JSON.parse(userInfo)
-              let obj={
-                "createName": userInfo.userName,
-                "createTime": "",
-                "hospCode": userInfo.hospCode,
-                "hospName": userInfo.hospName,
-                "id": '',
-                "job": values.job,
-                "jobPoint": '',
-                "password": values.password,
-                "signature": "",
-                "status": 0,
-                "tel": values.tel,
-                "updateName": userInfo.userName,
-                "updateId":userInfo.userId,
-                "updateTime": '',
-                "userId": values.userId,
-                "userName": values.name
-              }
-              let staffDictList=[]
-              staffDictList.push(obj)
-              dispatch({
-                  type:'staffManagement/staffDict_saveStaffDict',
-                  payload:{
-                    staffDictList
-                  },
-                  callback:res=>{
-                      if(res.success){
-                          message.success('新增成功！！')
-                          this.props.closeModal()
-                          this.props.search()
-                      }else{
-                          message.error(res.msg)
-                      }
+                let userInfo=sessionStorage.getItem('userInfo')
+                 userInfo=JSON.parse(userInfo)
+              if(this.props.type=='add'){
+                if(values.password!=values.passwordTwo){
+                    message.error('两次密码不一致，请确认！')
+                    return
+                }
+                let obj={
+                  "createName": userInfo.userName,
+                  "createTime": "",
+                  "hospCode": userInfo.hospCode,
+                  "hospName": userInfo.hospName,
+                  "id": '',
+                  "job": values.job,
+                  "jobPoint": '',
+                  "password": values.password,
+                  "signature": "",
+                  "status": 0,
+                  "tel": values.tel,
+                  "updateName": userInfo.userName,
+                  "updateId":userInfo.userId,
+                  "updateTime": '',
+                  "userId": values.userId,
+                  "userName": values.userName
+                }
+                let staffDictList=[]
+                staffDictList.push(obj)
+                dispatch({
+                    type:'staffManagement/staffDict_saveStaffDict',
+                    payload:{
+                      staffDictList
+                    },
+                    callback:res=>{
+                        if(res.success){
+                            message.success('新增成功！！')
+                            this.props.closeModal()
+                            this.props.search()
+                        }else{
+                            message.error(res.msg)
+                        }
+                    }
+                })
+              }else{
+                  let {record}=this.props
+                let obj={
+                    "createName": record.createName,
+                    "createTime": record.createTime,
+                    "hospCode": userInfo.hospCode,
+                    "hospName": userInfo.hospName,
+                    "id": record.id,
+                    "job": values.job,
+                    "jobPoint": '',
+                    "password": values.password1,
+                    "signature": "",
+                    "status": record.status,
+                    "tel": values.tel,
+                    "updateName": userInfo.userName,
+                    "updateId":userInfo.userId,
+                    "updateTime": '',
+                    "userId": values.userId,
+                    "userName": values.userName
                   }
-              })
+                  let staffDictList=[]
+                  staffDictList.push(obj)
+                  dispatch({
+                      type:'staffManagement/staffDict_updateStaffDictById',
+                      payload:{
+                        staffDictList
+                      },
+                      callback:res=>{
+                          if(res.success){
+                              message.success('修改成功！！')
+                              this.props.closeModal()
+                              this.props.search()
+                          }else{
+                              message.error(res.msg)
+                          }
+                      }
+                  })
+
+              }
               
 
             }
@@ -118,7 +164,7 @@ class CreateDra extends React.Component {
           };
         return (
             <Modal
-                title="新增员工"
+                title={this.props.type=='add'?"新增员工":'编辑'}
                 visible={this.props.visible}
                 onOk={this.handleOk}
                 onCancel={this.props.closeModal}
@@ -127,7 +173,7 @@ class CreateDra extends React.Component {
                 <Form {...formItemLayout} onSubmit={this.handleOk}>
                 <Form.Item label="类型">
                         {getFieldDecorator('job', {
-                            initialValue:1,
+                            initialValue:'1',
                             rules: [
                                 // {
                                 //     type: 'email',
@@ -139,10 +185,10 @@ class CreateDra extends React.Component {
                                 },
                                 ],
                         })(<Radio.Group  defaultValue={1} name="radiogroup">
-                        <Radio value={1}>医生</Radio>
-                        <Radio value={2}>护士</Radio>
-                        <Radio value={3}>前台</Radio>
-                        <Radio value={4}>其他</Radio>
+                        <Radio value={'1'}>医生</Radio>
+                        <Radio value={'2'}>护士</Radio>
+                        <Radio value={'3'}>前台</Radio>
+                        <Radio value={'4'}>其他</Radio>
                       </Radio.Group>)}
                     </Form.Item>
                     <Form.Item label="登陆工号">
@@ -157,10 +203,10 @@ class CreateDra extends React.Component {
                                     message: '请输入工号！',
                                 },
                                 ],
-                        })(<Input />)}
+                        })(<Input disabled={this.props.type=='edit'}/>)}
                     </Form.Item>
                     <Form.Item label="姓名">
-                        {getFieldDecorator('name', {
+                        {getFieldDecorator('userName', {
                             rules: [
                                 // {
                                 //     type: 'email',
@@ -190,7 +236,8 @@ class CreateDra extends React.Component {
 
                         </Select>   )}
                     </Form.Item>
-                    <Form.Item label="登陆密码">
+                    {
+                        this.props.type=='add'?<Form.Item label="登陆密码">
                         {getFieldDecorator('password', {
                             rules: [
                                 // {
@@ -203,8 +250,11 @@ class CreateDra extends React.Component {
                                 },
                                 ],
                         })(<Input />)}
-                    </Form.Item>
-                    <Form.Item label="密码确认">
+                        </Form.Item>:''
+                    
+                    }
+                    {
+                        this.props.type=='add'? <Form.Item label="密码确认" style={{display:this.props.type=='edit'?'none':''}}>
                         {getFieldDecorator('passwordTwo', {
                             rules: [
                                 // {
@@ -217,7 +267,27 @@ class CreateDra extends React.Component {
                                 },
                                 ],
                         })(<Input />)}
-                    </Form.Item>
+                    </Form.Item>:''
+                    }
+                    {
+                        this.props.type=='edit'?<Form.Item label="登陆密码" style={{display:this.props.type=='edit'?'':'none'}}>
+                        {getFieldDecorator('password1', {
+                            rules: [
+                                // {
+                                //     type: 'email',
+                                //     message: 'The input is not valid E-mail!',
+                                // },
+                                {
+                                    // required: true,
+                                    message: '请输入密码！',
+                                },
+                                ],
+                        })(<Input />)}
+                    </Form.Item>:''
+                    }
+
+                    
+                   
                     <Form.Item label="手机号">
                         {getFieldDecorator('tel', {
                             rules: [

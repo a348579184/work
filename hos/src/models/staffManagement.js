@@ -13,7 +13,10 @@ import { platformKey, isSuccess, platformToken } from '../utils/constant';
 import { userInfo } from 'os';
 import { message } from 'antd';
 import pathToRegexp from 'path-to-regexp';
-const { staffDict_getStaffDict,staffDict_saveStaffDict,staffDict_delStaffDictById} = api;
+const { staffDict_getStaffDict,staffDict_saveStaffDict,
+    staffDict_delStaffDictById,
+    staffDict_updateStaffDictById,
+} = api;
 
 
 export default {
@@ -25,6 +28,10 @@ export default {
     },
 
     effects: {
+        *staffDict_updateStaffDictById({ payload,callback}, { call, put }) {
+            let res=yield call(staffDict_updateStaffDictById,payload)
+            callback(res)
+        },
         *staffDict_delStaffDictById({ payload,callback}, { call, put }) {
             let form=new FormData()
             form.append('id',payload.id)

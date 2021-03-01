@@ -32,8 +32,9 @@ class StaffManagementResearch extends React.Component {
             searchCondition:{
                 input:'',
                 state:'3',
-                visible:false
-            }
+                
+            },visible:false,
+            record:{}
         };
     }
     columns=[
@@ -100,7 +101,7 @@ class StaffManagementResearch extends React.Component {
             dataSource:'cz',
             render:(text,record,index)=>{
                 return <div>
-                           <a>修改</a>
+                           <a onClick={()=>{this.edit(record)}}>修改</a>
                            <Popconfirm
                                 title="确认删除?"
                                 onConfirm={()=>this.del(record)}
@@ -150,7 +151,10 @@ class StaffManagementResearch extends React.Component {
         })
     }
     createStaff=()=>{
-        this.setState({visible:true,type:'add'})
+        this.setState({visible:true,type:'add',record:{}})
+    }
+    edit=(record)=>{
+        this.setState({visible:true,type:'edit',record})
     }
 
 
@@ -178,8 +182,12 @@ class StaffManagementResearch extends React.Component {
                     {/* 主体 */}
                     <div className="research-body-content-body">
                         <div className={'searchCondition'}>
-                        <CreateDra visible={this.state.visible} closeModal={this.closeModal} search={this.search} type={'edit'}/>
-                            <div>
+                            {
+                                this.state.visible?<CreateDra visible={this.state.visible} closeModal={this.closeModal} 
+                                record={this.state.record}
+                                search={this.search} type={this.state.type}/>:''
+                            }
+                         <div>
                                 <Search
                                     placeholder="姓名或手机号"
                                     value={this.state.searchCondition.input}

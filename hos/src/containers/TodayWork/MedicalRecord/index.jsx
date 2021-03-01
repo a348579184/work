@@ -77,14 +77,16 @@ class CreateRegister extends React.Component {
               },
               callback:res=>{
                   if(res.success){
-                      if(res.result.toothLocation=='111'){
+                      if(res.result.toothLocation==''){
                         res.result.toothLocation={topleft:[],topright:[],bottomleft:[],bottomright:[]}
+                      }else{
+                          res.result.toothLocation=JSON.parse(res.result.toothLocation)
                       }
                       
                       this.setState({...this.state,...res.result})
                   }else{
                     this.setState({
-                        name,age,sex,clinicType,patientId,registrationDoctor,registrationDoctorCode,
+                        name,age,sex,clinicType,patientId,registrationDoctor,registrationDoctorCode,id:''
                     })
                   }
 
@@ -150,9 +152,19 @@ class CreateRegister extends React.Component {
         const {dispatch}=this.props
         let obj=this.state
         obj.toothLocation=JSON.stringify(obj.toothLocation)
+        obj.visitId=this.props.today.rDetail.visitId
+        obj.hospCode=sessionStorage.getItem('hospCode')
         dispatch({
             type:'today/caseHistory_saveOrUpdateCaseHistory',
-            payload:obj
+            payload:obj,
+            callback:res=>{
+                if(res.success){
+                    message.success('编辑成功！！')
+                    this.onClose()
+                }else{
+                    message.error(res.msg)
+                }
+            }
         })
     }
     
@@ -259,7 +271,8 @@ class CreateRegister extends React.Component {
                         <Col span={8}>
                             <label >就诊日期：</label>
                             <DatePicker 
-                            value={registrationDate==null?null:moment(new Date(registrationDate))}
+                            value={registrationDate==''?null:moment(new Date(registrationDate))}
+                            onChange={(date,dateString)=>{this.setState({registrationDate:dateString})}}
 
                             />
                         </Col>

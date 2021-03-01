@@ -8,6 +8,7 @@ const platform = {
     staffDict_getStaffDict:`POST /api/staffDict/getStaffDict`,
     staffDict_saveStaffDict:`POST /api/staffDict/saveStaffDict`,
     staffDict_delStaffDictById:`POST /api/staffDict/delStaffDictById`,
+    staffDict_updateStaffDictById:`POST /api/staffDict/updateStaffDictById`,
 }
 
 const APIFunction = {}

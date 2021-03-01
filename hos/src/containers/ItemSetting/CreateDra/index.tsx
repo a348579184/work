@@ -144,9 +144,10 @@ class CreateDra extends React.Component {
               },
             },
           };
+        //   console.log(this.props.itemSetting.tagList)
         return (
             <Modal
-                title="新增员工"
+                title={this.props.type=='add'?'新增员工':'编辑员工'}
                 visible={this.props.visible}
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
