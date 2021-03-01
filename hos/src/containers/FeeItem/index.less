@@ -1,0 +1,210 @@
+.feeitem {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    overflow: hidden;
+    .bg-select{
+      background-color: rgb(17,171,218);
+      color:white;
+    }
+    .ant-tree-node-selected {
+      background-color: white!important;
+    }
+    .ant-tree-treenode-selected{
+      background-color: white!important;
+    }
+  
+    .research-head {
+      width: 100%;
+      min-width: 1165px;
+      height: 56px;
+      border-bottom: 3px solid #eee;
+  
+      .left-title {
+        margin: 12px;
+        display: inline-block;
+  
+        span {
+          font-size: 20px;
+          font-weight: bold;
+        }
+      }
+  
+      .right-research {
+      //   display: inline-block;
+        height: 56px;
+        float: right;
+        padding-top: 10px;
+        div {
+          display: inline-block;
+        }
+  
+        .right-research-resource {
+          margin-left: 10px;
+          div {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-status {
+          margin-left: 10px;
+          div {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-daterange{
+          margin-left: 10px;
+          div {
+            display: inline-block;
+            width: 115px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-input {
+          margin-left: 10px;
+          div {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+          }
+        }
+  
+        .right-research-btn {
+          margin-left: 10px;
+          button {
+            display: inline-block;
+            width: 80px;
+            border-radius: 2px;
+            margin-right: 10px;
+            border: 1px solid #999;
+          }
+        }
+      }
+    }
+  
+    //表格行不可选择时content样式
+    .research-body {
+      height: calc(100% - 56px);
+      min-width: 1165px;
+      // overflow: overlay;
+      .research-result {
+        display: inline-block;
+        width: 18%;
+        height: 100%;
+        border-right: 1px solid #ccc;
+        overflow: overlay;
+        .research-result-table-title{
+          padding-left: 15px;
+          span{
+            display: inline-block;
+            font-weight: bold;
+            font-size: 18px;
+          }
+        }
+        .rowSelection td{
+          text-align: center;
+          padding: 7px 0;
+        }
+      }
+      .research-body-content{
+        background-color: #ffffff;
+        display: inline-block;
+        width: 82%;
+        height: 100%;
+        overflow: overlay;
+      } 
+    }
+  
+    //表格行可选择时content样式
+    .research-body-isRowSelection {
+      height: calc(100% - 56px);
+      overflow: hidden;
+      .research-result {
+        display: inline-block;
+        width: 20%;
+        height: 100%;
+        border-right: 1px solid #ccc;
+        overflow: overlay;
+        .research-result-table-title{
+          padding-left: 15px;
+          span{
+            font-size: 18px;
+            font-weight: bold;
+            display: inline-block;
+          }
+        }
+        .rowSelection td{
+          text-align: center;
+          padding: 7px 0;
+        }
+      }
+      .research-body-content{
+        background-color: #ffffff;
+        display: inline-block;
+        width: 80%;
+        height: 100%;
+        overflow: overlay;
+        .research-content-body {
+          height: calc(100% - 50px);
+          overflow: overlay;
+        }
+        .research-content-footer {
+          position: relative;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100%;
+          height: 50px;
+          z-index: 9;
+          padding: 10px 1px 1px 1px;
+          background-color: white;
+          box-shadow: 0px -2px 5px 0;
+          border: 1px solid white;
+          text-align: center;
+          vertical-align: middle;
+          padding-top: 10px;
+          button {
+            background: rgba(0, 133, 233, 1);
+            border-radius: 2px;
+          }
+        }
+      } 
+    }
+  
+  }
+  .node{
+    font-size: 13px;
+    display: flex;
+    height:24px;
+    .left{
+      // width:70%;
+      min-width: 10px;
+      span{
+        display: inline-block;
+        min-width: 100px;
+      }
+    }
+    .right{
+      // width:30%;
+      text-align: right;
+      a{
+          color:#1890ff;
+          margin-right: 4px;
+      }
+    }
+  }
+  
+  .treeBtn{
+    height:0px;
+    position: relative;
+    text-align: right;
+    top:6px;
+    margin-right: 4px;
+  }
+  
