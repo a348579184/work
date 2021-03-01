@@ -32,6 +32,54 @@ class TemplateResearch extends React.Component {
     componentDidMount() {
 
     }
+    columns=[
+        {
+            title:'项目名',
+            width:'50%',
+
+        },
+        {
+            title:'价格',
+            width:'30%',
+            
+        },{
+            title:'操作',
+            width:'20%',
+            render:(text,record,index)=>{
+                return <div>
+                    <a >修改</a>
+                    <a >删除</a>
+                </div>  
+            }
+        },
+    ]
+    getNode=(val,ind)=>{
+        return <div className={'node'}>
+            <div className={'left'}>
+                <span  style={{ paddingLeft: 10 }}>123</span>
+            </div>
+            <div className={'right'}>
+                        <a
+                            
+                        >编辑</a>
+                        <Popconfirm
+                            title="确认删除?"
+                            
+                            // onCancel={cancel}
+                            okText="确定"
+                            cancelText="取消"
+                        >
+                            <a style={{ color: 'red' }}>删除</a>
+
+                        </Popconfirm>
+
+                    </div>
+
+
+
+
+        </div>
+    }
     
     
 
@@ -65,8 +113,12 @@ class TemplateResearch extends React.Component {
                                 defaultExpandAll={true}
                                 
                             >
+                                <TreeNode key={0} title={'诊疗类'}>
+                                    <TreeNode key={12}
+                                                    title={<span onClick={()=>this.treeClick(123)}>{this.getNode()}</span>}></TreeNode>
+                                    </TreeNode>
                                 
-                            </Tree>
+                                </Tree>
                         </div>
 
                     </div>
@@ -75,7 +127,9 @@ class TemplateResearch extends React.Component {
                         <div className="research-content-body" >
                             {/* {this.props.children} */}
                             <DisableFoldCollapse >
-                                {/* <TemplateTable /> */}
+                                <Table
+                                  columns={this.columns}
+                                 ></Table>
                             </DisableFoldCollapse>
                         </div>
 
