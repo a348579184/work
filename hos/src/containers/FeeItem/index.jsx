@@ -9,7 +9,7 @@
 
 
 import React from 'react';
-import { Select, Input, Tree, message, Popconfirm } from 'antd';
+import { Select, Input, Tree, message, Popconfirm ,Table} from 'antd';
 import PropTypes from 'prop-types';
 import './index.less';
 import { connect } from 'dva';
@@ -24,12 +24,17 @@ const { Search } = Input;
 
 
 
-@connect(({ setting }) => ({ setting }))
+@connect(({ setting ,feeItem}) => ({ setting,feeItem }))
 class TemplateResearch extends React.Component {
     state = {
         
     }
     componentDidMount() {
+        const {dispatch}=this.props
+        dispatch({
+            type:'feeItem/classDict_getClassDict',
+            payload:{hospCode:sessionStorage.getItem('hospCode')}
+        })
 
     }
     columns=[
@@ -56,7 +61,7 @@ class TemplateResearch extends React.Component {
     getNode=(val,ind)=>{
         return <div className={'node'}>
             <div className={'left'}>
-                <span  style={{ paddingLeft: 10 }}>123</span>
+                <span  style={{ paddingLeft: 10 }}>{val.className}</span>
             </div>
             <div className={'right'}>
                         <a
@@ -86,7 +91,7 @@ class TemplateResearch extends React.Component {
 
 
     render() {
-
+        const {feeItem}=this.props
         return (
             <div className="feeitem">
                 <div className="research-head">
@@ -114,8 +119,26 @@ class TemplateResearch extends React.Component {
                                 
                             >
                                 <TreeNode key={0} title={'诊疗类'}>
-                                    <TreeNode key={12}
-                                                    title={<span onClick={()=>this.treeClick(123)}>{this.getNode()}</span>}></TreeNode>
+                                    {
+                                        feeItem.diagnosis.map(val=>{
+                                            return <TreeNode key={val.id}
+                                            title={<span onClick={()=>this.treeClick(val)}>{this.getNode(val)}</span>}>
+
+                                            </TreeNode>
+                            
+                                        })
+                                    }
+                                    </TreeNode>
+                                    <TreeNode key={0} title={'药品类'}>
+                                    {
+                                        feeItem.medicines.map(val=>{
+                                            return <TreeNode key={val.id}
+                                            title={<span onClick={()=>this.treeClick(val)}>{this.getNode(val)}</span>}>
+
+                                            </TreeNode>
+                            
+                                        })
+                                    }
                                     </TreeNode>
                                 
                                 </Tree>

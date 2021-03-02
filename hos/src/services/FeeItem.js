@@ -5,6 +5,8 @@ import {API_EMR_TREAT,API} from '../utils/constant';
  * @description 写入接口需要拼接 const API_EMR_TREAT='/api/emr/treat' 前缀
 */
 const platform = {
+  classDict_getClassDict:`POST /api/classDict/getClassDict`,
+  priceDict_getPriceDictByClassId:`POST /api/priceDict/getPriceDictByClassId`,
 }
 
 const APIFunction = {}
