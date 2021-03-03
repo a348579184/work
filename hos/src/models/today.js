@@ -134,7 +134,7 @@ export default {
             if(res.success){
                 yield put({
                     type:'registrationMaster_getRegistrationMasterR',
-                    payload:res.result
+                    payload:Array.isArray(res.result)?res.result:[]
                 })
             }
             callback(res)

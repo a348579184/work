@@ -33,7 +33,7 @@ export default {
                 sessionStorage.setItem(platformToken,'sss')
                 sessionStorage.setItem('userInfo',JSON.stringify(userInfo.result))
                 sessionStorage.setItem('hospCode',userInfo.result.hospCode)
-                router.push('/BasicSettings/StaffManagement')
+                router.push('/TodayWork/TodayWork')
             }else{
                 message.error(response.msg)
             }

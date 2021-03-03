@@ -7,6 +7,11 @@ import {API_EMR_TREAT,API} from '../utils/constant';
 const platform = {
   classDict_getClassDict:`POST /api/classDict/getClassDict`,
   priceDict_getPriceDictByClassId:`POST /api/priceDict/getPriceDictByClassId`,
+  classDict_saveOrUpdateClassDict:`POST /api/classDict/saveOrUpdateClassDict`,
+  classDict_deleteClassDictById:`POST /api/classDict/deleteClassDictById`,
+  // priceDict_getPriceDictByClassId:`POST /api/priceDict/getPriceDictByClassId`
+  priceDict_saveOrUpdatePriceDict:`POST /api/priceDict/saveOrUpdatePriceDict`,
+  priceDict_deletePriceDictById:`POST /api/priceDict/deletePriceDictById`,
 }
 
 const APIFunction = {}

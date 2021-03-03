@@ -43,13 +43,31 @@ class LeftMenu extends React.Component {
                     >
                         <Menu
                             // selectedKeys={'/BasicSettings/StaffManagement'}
-                            defaultOpenKeys={['BasicSettings']}
-                            defaultSelectedKeys={'/BasicSettings/StaffManagement'}
+                            defaultOpenKeys={['TodayWork']}
+                            defaultSelectedKeys={'/TodayWork/TodayWork'}
                             mode='inline'
                             inlineCollapsed={this.state.collapsed}
                             theme="light"
                             style={{ height: 'calc(100vh - 100px)', overflowY: 'auto', overflowX: 'hidden' }}
                         >
+                            <SubMenu
+                                key="TodayWork"
+                                title={
+                                    <Fragment>
+                                        <Icon className="m-a-icon"/>
+                                        <span>今日工作</span>
+                                    </Fragment>
+                                }
+
+                            >
+                                
+                              <Menu.Item key="/TodayWork/TodayWork">
+                                <Link to="/TodayWork/TodayWork">
+                                  <span>今日工作</span>
+                                </Link>
+                              </Menu.Item>
+                              
+                            </SubMenu>
                             
                             <SubMenu
                                 key="BasicSettings"
@@ -79,24 +97,7 @@ class LeftMenu extends React.Component {
                               </Menu.Item>
                             </SubMenu>
 
-                            <SubMenu
-                                key="TodayWork"
-                                title={
-                                    <Fragment>
-                                        <Icon className="m-a-icon"/>
-                                        <span>今日工作</span>
-                                    </Fragment>
-                                }
-
-                            >
-                                
-                              <Menu.Item key="/TodayWork/TodayWork">
-                                <Link to="/TodayWork/TodayWork">
-                                  <span>今日工作</span>
-                                </Link>
-                              </Menu.Item>
-                              
-                            </SubMenu>
+                            
 
                             
 
