@@ -146,7 +146,8 @@ class CreateRegister extends React.Component {
                 </div>
                     
           </div>
-          <Button onClick={this.props.openMedical}>新增病历</Button>
+          <Button onClick={this.props.openMedical}>编辑病历</Button>
+          <Button onClick={this.props.openFee}>编辑收费单</Button>
         </Drawer>
             );
     }

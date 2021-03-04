@@ -72,7 +72,8 @@ class Index extends Component {
             </Form.Item>
               <Form.Item className="login-item-btn">
               
-                <Button htmlType="submit" type="primary" size="large" 
+                <Button  size="large" type={'primary'}
+                onClick={this.onLogin}
                 id={'loginBtn'}
                 className="login-btn nt-btn-primary " loading={effects["platform/platformLogin"]||effects["platform/getPlatformUserinfo"]} style={{ width: "100%" }} >登录</Button>
                 <div className="login-error">{msg}</div>

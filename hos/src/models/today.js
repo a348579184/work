@@ -73,6 +73,7 @@ export default {
         },
         mvisible:false,
         tvisible:false,
+        fvisible:false,
     },
 
     effects: {
@@ -168,6 +169,12 @@ export default {
             return {
                 ...state,
                 mvisible:action.payload
+            }
+        },
+        fvisibleChange(state,action){
+            return {
+                ...state,
+                fvisible:action.payload
             }
         },
         tvisibleChange(state,action){
