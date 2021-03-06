@@ -9,7 +9,7 @@ const { patientMaster_getpatientId,patientMaster_savePatientMaster,
     registrationMaster_getRegistrationMaster,patientMaster_getPatientMasterByDto,
     registrationMaster_saveRegistrationMaster,registrationMaster_getHeadline,
     registrationMaster_getRegistrationById,registrationMaster_updateRegistrationStatus,
-    caseHistory_saveOrUpdateCaseHistory,caseHistory_getCaseHistoryById
+    caseHistory_saveOrUpdateCaseHistory,caseHistory_getCaseHistoryById,classDict_getMenuList
 } = api;
 
 
@@ -17,6 +17,10 @@ export default {
     namespace: 'today',
 
     state: {
+        menuObj:{
+            medicineVoList:[],
+            diagnosisVoList:[]
+        },
         mrdetail:{
             "age": "",
             "assistant": "",
@@ -77,6 +81,18 @@ export default {
     },
 
     effects: {
+        *classDict_getMenuList({ payload,callback}, { call, put }){
+            let form=new FormData()
+            form.append('hospCode',sessionStorage.getItem('hospCode'))
+            let res=yield call(classDict_getMenuList,form)
+            if(res.success){
+                yield put({
+                    type:'classDict_getMenuListR',
+                    payload:res.result
+                })
+            }
+            callback(res)
+        },
         *caseHistory_saveOrUpdateCaseHistory({ payload,callback}, { call, put }){
             let res=yield call(caseHistory_saveOrUpdateCaseHistory,payload)
             callback(res)
@@ -159,6 +175,12 @@ export default {
     },
 
     reducers: {
+        classDict_getMenuListR(state,action){
+            return {
+                ...state,
+                menuObj:action.payload
+            }
+        },
         caseHistory_getCaseHistoryByIdR(state,action){
             return {
                 ...state,

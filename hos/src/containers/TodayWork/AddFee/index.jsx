@@ -2,7 +2,7 @@
 
 import React, { Fragment } from 'react';
 import router from 'umi/router';
-import { Select, Input, Button, Table, message,Radio, Checkbox, Modal,Form, DatePicker,Progress ,Row,Col,Drawer} from 'antd';
+import { Select, Input, Button, Table, message,Radio, Checkbox, Modal,Form, DatePicker,Progress ,Row,Col,Drawer,Tree} from 'antd';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
@@ -16,6 +16,7 @@ message.config({
 })
 const { Search,TextArea } = Input;
 const { Option } = Select;
+const {TreeNode}=Tree
 
 @Form.create()
 @withRouter
@@ -85,6 +86,10 @@ class AddFeeDra extends React.Component {
                   }
 
               }
+        })
+        dispatch({
+            type:'today/classDict_getMenuList',
+            payload:{hospCode:sessionStorage.getItem('hospCode')}
         })
 
         
@@ -211,6 +216,7 @@ class AddFeeDra extends React.Component {
             
         }=this.state
         console.log(this.state)
+        const {medicineVoList,diagnosisVoList}=this.props.today.menuObj
         
         
         return (
@@ -229,8 +235,9 @@ class AddFeeDra extends React.Component {
             
             closable={true}
             onClose={this.onClose}
-            visible={this.props.today.fvisible}
-            // visible={true}
+            // visible={this.props.today.fvisible}
+
+            visible={true}
             width={'100%'}
             bodyStyle={{padding:0,display:'flex',alignItems:'center',justifyContent:'space-around',
             backgroundColor: '#f0f0f0'}}
@@ -304,6 +311,35 @@ class AddFeeDra extends React.Component {
                 <div className={'chooseFee'}>
                     <h2>收费项目</h2>
                     <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
+                    <Tree>
+                        <TreeNode title={'诊疗类'} key={'a'}>
+                        {
+                                diagnosisVoList?.map(val=>{
+                                    return <TreeNode key={val.classDict.id} title={val.classDict.className}>
+                                        {
+                                            val.priceDictList.map(item=>{
+                                                return <TreeNode key={item.id} title={item.itemName}></TreeNode>
+                                            })
+                                        }
+                                    </TreeNode>   
+                                })
+                            }
+                        </TreeNode>
+                        <TreeNode title={'药品类'} key={'b'}>
+                            {
+                                medicineVoList?.map(val=>{
+                                    return <TreeNode key={val.classDict.id} title={val.classDict.className}>
+                                        {
+                                            val.priceDictList.map(item=>{
+                                                return <TreeNode key={item.id} title={item.itemName}></TreeNode>
+                                            })
+                                        }
+                                    </TreeNode>   
+                                })
+                            }
+                        </TreeNode>
+                    </Tree>
+
                 </div>
                 
 
