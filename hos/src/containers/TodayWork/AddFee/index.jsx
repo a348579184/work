@@ -25,11 +25,35 @@ class AddFeeDra extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name:'',
-            sex:'',
-            age:'',patientId:'',clinicType:'',registrationDoctor:'',registrationDoctorCode:'',
-            registrationDate:'',toothLocation:{topleft:[],topright:[],bottomleft:[],bottomright:[]},symptom:'',historyOfPresentIllness:'',previousHistory:'',
-            inspectionReport:'',rayExamination:'',diagnose:'',treatment	:'',doctorAdvice:'',treatPlan:''
+            "costDetailsList": [
+                {
+                  "amount": "",
+                  "discountPrice": 0,
+                  "discountRate": "",
+                  "hospCode": "",
+                  "id": 0,
+                  "itemCode": "",
+                  "itemName": "",
+                  "patientId": "",
+                  "payDemandId": 0,
+                  "price": 0,
+                  "visitId": ""
+                }
+              ],
+              "payDemandNote": {
+                "assistantCode": "",
+                "assistantName": "",
+                "doctorCode": "",
+                "doctorName": "",
+                "hospCode": sessionStorage.getItem('hospCode'),
+                "id": 0,
+                "name": "",
+                "patientId": "",
+                "payNoteDate": "",
+                "remark": "",
+                "sex": "",
+                "visitId": ""
+              }
             
         };
         // this.selPatient=debounce(this.selPatient,500)
@@ -37,34 +61,17 @@ class AddFeeDra extends React.Component {
     componentDidMount(){
         const {dispatch}=this.props
         const {rDetail}=this.props.today
-        const {addrCity,
-        addrCounty,
-        addrProvince,
-        addrDetailed,
-        areaCode,
-        clinicState,
-        clinicTag,
-        clinicTagId,
+        const {
         registrationDoctor,
         registrationDoctorCode,
         age,
         clinicType,
-        hospCode,
-        id,
-        identity,
-        lastDate,
         name,
-        operationDate,
         patientId,
-        phone,
-        registrationDate,
-        remark,
         sex,
-        tel,
-        vipCode,
         visitId}=rDetail
         dispatch({
-            type:'today/caseHistory_getCaseHistoryById',
+            type:'today/payDemandNote_getPayDemandNote',
             payload:{
                 "hospCode": sessionStorage.getItem('hospCode'),
                 "patientId": patientId,
@@ -80,9 +87,7 @@ class AddFeeDra extends React.Component {
                       
                       this.setState({...this.state,...res.result})
                   }else{
-                    this.setState({
-                        name,age,sex,clinicType,patientId,registrationDoctor,registrationDoctorCode,id:''
-                    })
+                    
                   }
 
               }
@@ -97,24 +102,25 @@ class AddFeeDra extends React.Component {
     columns=[
         {
             title:'明细项目',
-            key:'',
-            dataIndex:''
+            key:'itemName',
+            dataIndex:'itemName'
         },{
             title:'数量',
-            key:'',
-            dataIndex:''
+            key:'amount',
+            dataIndex:'amount'
         },{
             title:'单价',
-            key:'',
-            dataIndex:''
+            key:'price',
+            dataIndex:'price'
         },{
             title:'折扣率（%）',
-            key:'',
-            dataIndex:''
+            key:'discountRate',
+            dataIndex:'discountRate',
+
         },{
             title:'折后单价',
-            key:'',
-            dataIndex:''
+            key:'discountPrice',
+            dataIndex:'discountPrice'
         },{
             title:'操作',
             key:'cz',
@@ -193,29 +199,38 @@ class AddFeeDra extends React.Component {
             }
         })
     }
+    setList=(item)=>{
+        console.log(item)
+        let list=this.state.costDetailsList
+        let id=this.state.payDemandNote.id?this.state.payDemandNote.id:0
+        let obj={
+            "amount": "1",
+            "discountPrice": item.price,
+            "discountRate": "100",
+            "hospCode": sessionStorage.getItem('hospCode'),
+            "id": id,
+            "itemCode": item.itemCode,
+            "itemName": item.itemName,
+            "patientId": "string",
+            "payDemandId": 0,
+            "price": 0,
+            "visitId": "string"
+        }
+    }
     
     
     
 
 
     render() {
-        // const {
-        //     age,
-        //     assistant,clinicType,diagnose,doctorAdvice,historyOfPresentIllness,inspectionReport,
-        //     name,patientId,previousHistory,rayExamination,registrationDate,registrationDoctor,registrationDoctorCode,
-        //     sex,symptom,treatment,visitId
-        //   }=this.props.today.mrdetail
-        let rTooth=[1,2,3,4,5,6,7,8]
-        let lTooth=[8,7,6,5,4,3,2,1]
+        
         const {
             name,
             sex,
-            age,patientId,clinicType,registrationDoctor,registrationDoctorCode,
-            registrationDate,toothLocation,symptom,historyOfPresentIllness,previousHistory,
-            inspectionReport,rayExamination,diagnose,treatment,doctorAdvice,treatPlan
+            age,patientId,
+            payNoteDate,
             
-        }=this.state
-        console.log(this.state)
+        }=this.state.payDemandNote
         const {medicineVoList,diagnosisVoList}=this.props.today.menuObj
         
         
@@ -274,12 +289,12 @@ class AddFeeDra extends React.Component {
                             <label >医生：</label>
                             <Select style={{width:'160px'}} 
                             // defaultValue={registrationDoctor}
-                            value={this.state.registrationDoctor}
+                            value={this.state.payDemandNote.doctorName}
                             onChange={(e,option)=>{
-                                let obj=this.state
-                                obj.registrationDoctor=option.props.item.userName
-                                obj.registrationDoctorCode=option.props.item.id
-                                this.setState({...this.state})
+                                let obj=this.state.payDemandNote
+                                obj.doctorName=option.props.item.userName
+                                obj.doctorCode=option.props.item.id
+                                this.setState({payDemandNote:obj})
                             }}
                             >
                             {
@@ -294,7 +309,7 @@ class AddFeeDra extends React.Component {
                         <Col span={8}>
                             <label >账单日期：</label>
                             <DatePicker 
-                            value={registrationDate==''?null:moment(new Date(registrationDate))}
+                            value={payNoteDate==''?null:moment(new Date(payNoteDate))}
                             onChange={(date,dateString)=>{this.setState({registrationDate:dateString})}}
 
                             />
@@ -305,6 +320,7 @@ class AddFeeDra extends React.Component {
                     <div style={{height:10}}></div>
                     <Table
                        columns={this.columns}
+                       dataSource={this.state.costDetailsList}
                     ></Table>
 
                 </div>
@@ -318,7 +334,7 @@ class AddFeeDra extends React.Component {
                                     return <TreeNode key={val.classDict.id} title={val.classDict.className}>
                                         {
                                             val.priceDictList.map(item=>{
-                                                return <TreeNode key={item.id} title={item.itemName}></TreeNode>
+                                                return <TreeNode key={item.id} title={<span onClick={()=>{this.setList(item)}}>{item.itemName}</span>}></TreeNode>
                                             })
                                         }
                                     </TreeNode>   
@@ -331,7 +347,7 @@ class AddFeeDra extends React.Component {
                                     return <TreeNode key={val.classDict.id} title={val.classDict.className}>
                                         {
                                             val.priceDictList.map(item=>{
-                                                return <TreeNode key={item.id} title={item.itemName}></TreeNode>
+                                                return <TreeNode key={item.id} title={<span onClick={()=>{this.setList(item)}}>{item.itemName}</span>}></TreeNode>
                                             })
                                         }
                                     </TreeNode>   

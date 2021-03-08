@@ -9,7 +9,8 @@ const { patientMaster_getpatientId,patientMaster_savePatientMaster,
     registrationMaster_getRegistrationMaster,patientMaster_getPatientMasterByDto,
     registrationMaster_saveRegistrationMaster,registrationMaster_getHeadline,
     registrationMaster_getRegistrationById,registrationMaster_updateRegistrationStatus,
-    caseHistory_saveOrUpdateCaseHistory,caseHistory_getCaseHistoryById,classDict_getMenuList
+    caseHistory_saveOrUpdateCaseHistory,caseHistory_getCaseHistoryById,classDict_getMenuList,
+    payDemandNote_getPayDemandNote
 } = api;
 
 
@@ -81,6 +82,17 @@ export default {
     },
 
     effects: {
+        *payDemandNote_getPayDemandNote({ payload,callback}, { call, put }){
+            let form=new FormData()
+            form.append('hospCode',sessionStorage.getItem('hospCode'))
+            form.append('patientId',sessionStorage.getItem('patientId'))
+            form.append('visitId',sessionStorage.getItem('visitId'))
+            let res=yield call(payDemandNote_getPayDemandNote,form)
+            // if(res.success){
+            //     yield put({type:'caseHistory_getCaseHistoryByIdR',payload:res.result})
+            // }
+            callback(res)
+        },
         *classDict_getMenuList({ payload,callback}, { call, put }){
             let form=new FormData()
             form.append('hospCode',sessionStorage.getItem('hospCode'))

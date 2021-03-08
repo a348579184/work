@@ -16,6 +16,7 @@ const platform = {
   registrationMaster_getRegistrationById:`POST /api/registrationMaster/getRegistrationById`,
   registrationMaster_updateRegistrationStatus:`POST /api/registrationMaster/updateRegistrationStatus`,
   classDict_getMenuList:`POST /api/classDict/getMenuList`,
+  payDemandNote_getPayDemandNote:`POST /api/payDemandNote/getPayDemandNote`,
 }
 
 const APIFunction = {}

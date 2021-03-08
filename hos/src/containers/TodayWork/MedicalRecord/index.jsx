@@ -42,31 +42,14 @@ class CreateRegister extends React.Component {
     componentDidMount(){
         const {dispatch}=this.props
         const {rDetail}=this.props.today
-        const {addrCity,
-        addrCounty,
-        addrProvince,
-        addrDetailed,
-        areaCode,
-        clinicState,
-        clinicTag,
-        clinicTagId,
+        const {
         registrationDoctor,
         registrationDoctorCode,
         age,
         clinicType,
-        hospCode,
-        id,
-        identity,
-        lastDate,
         name,
-        operationDate,
         patientId,
-        phone,
-        registrationDate,
-        remark,
         sex,
-        tel,
-        vipCode,
         visitId}=rDetail
         dispatch({
             type:'today/caseHistory_getCaseHistoryById',
@@ -77,11 +60,7 @@ class CreateRegister extends React.Component {
               },
               callback:res=>{
                   if(res.success){
-                      if(res.result.toothLocation==''){
-                        res.result.toothLocation={topleft:[],topright:[],bottomleft:[],bottomright:[]}
-                      }else{
-                          res.result.toothLocation=JSON.parse(res.result.toothLocation)
-                      }
+                      
                       
                       this.setState({...this.state,...res.result})
                   }else{
