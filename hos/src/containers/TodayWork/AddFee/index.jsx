@@ -202,17 +202,17 @@ class AddFeeDra extends React.Component {
     setList=(item)=>{
         console.log(item)
         let list=this.state.costDetailsList
-        let id=this.state.payDemandNote.id?this.state.payDemandNote.id:0
+        // let id=this.state.payDemandNote.id?this.state.payDemandNote.id:0
         let obj={
             "amount": "1",
             "discountPrice": item.price,
             "discountRate": "100",
             "hospCode": sessionStorage.getItem('hospCode'),
-            "id": id,
+            "id": '',
             "itemCode": item.itemCode,
             "itemName": item.itemName,
             "patientId": "string",
-            "payDemandId": 0,
+            "payDemandId": '',
             "price": 0,
             "visitId": "string"
         }
