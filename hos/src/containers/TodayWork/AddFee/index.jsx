@@ -26,19 +26,19 @@ class AddFeeDra extends React.Component {
         super(props);
         this.state = {
             "costDetailsList": [
-                {
-                  "amount": "",
-                  "discountPrice": 0,
-                  "discountRate": "",
-                  "hospCode": "",
-                  "id": 0,
-                  "itemCode": "",
-                  "itemName": "",
-                  "patientId": "",
-                  "payDemandId": 0,
-                  "price": 0,
-                  "visitId": ""
-                }
+                // {
+                //   "amount": "",
+                //   "discountPrice": 0,
+                //   "discountRate": "",
+                //   "hospCode": "",
+                //   "id": 0,
+                //   "itemCode": "",
+                //   "itemName": "",
+                //   "patientId": "",
+                //   "payDemandId": 0,
+                //   "price": 0,
+                //   "visitId": ""
+                // }
               ],
               "payDemandNote": {
                 "assistantCode": "",
@@ -46,7 +46,7 @@ class AddFeeDra extends React.Component {
                 "doctorCode": "",
                 "doctorName": "",
                 "hospCode": sessionStorage.getItem('hospCode'),
-                "id": 0,
+                "id": '',
                 "name": "",
                 "patientId": "",
                 "payNoteDate": "",
@@ -62,13 +62,10 @@ class AddFeeDra extends React.Component {
         const {dispatch}=this.props
         const {rDetail}=this.props.today
         const {
-        registrationDoctor,
-        registrationDoctorCode,
-        age,
-        clinicType,
-        name,
-        patientId,
+            patientId,
         sex,
+        age,
+        name,
         visitId}=rDetail
         dispatch({
             type:'today/payDemandNote_getPayDemandNote',
@@ -79,13 +76,10 @@ class AddFeeDra extends React.Component {
               },
               callback:res=>{
                   if(res.success){
-                      if(res.result.toothLocation==''){
-                        res.result.toothLocation={topleft:[],topright:[],bottomleft:[],bottomright:[]}
-                      }else{
-                          res.result.toothLocation=JSON.parse(res.result.toothLocation)
-                      }
-                      
-                      this.setState({...this.state,...res.result})
+                      this.setState({
+                        payDemandNote:res.result.payDemandNote,
+                        costDetailsList:res.result.costDetailsList,
+                      })
                   }else{
                     
                   }
@@ -96,6 +90,13 @@ class AddFeeDra extends React.Component {
             type:'today/classDict_getMenuList',
             payload:{hospCode:sessionStorage.getItem('hospCode')}
         })
+        let obj=this.state.payDemandNote
+        obj.patientId=patientId
+        obj.visitId=visitId
+        obj.name=name
+        obj.age=age
+        obj.sex=sex
+        this.setState({payDemandNote:obj})
 
         
     }
@@ -183,12 +184,15 @@ class AddFeeDra extends React.Component {
     save=()=>{
         const {dispatch}=this.props
         let obj=this.state
-        obj.toothLocation=JSON.stringify(obj.toothLocation)
         obj.visitId=this.props.today.rDetail.visitId
         obj.hospCode=sessionStorage.getItem('hospCode')
+        let rc={
+            "costDetailsList": this.state.costDetailsList,
+            "payDemandNote": this.state.payDemandNote
+          }
         dispatch({
-            type:'today/caseHistory_saveOrUpdateCaseHistory',
-            payload:obj,
+            type:'today/payDemandNote_saveOrUpdatePayDemandNote',
+            payload:rc,
             callback:res=>{
                 if(res.success){
                     message.success('编辑成功！！')
@@ -201,6 +205,13 @@ class AddFeeDra extends React.Component {
     }
     setList=(item)=>{
         console.log(item)
+        const {rDetail}=this.props.today
+        const {
+            patientId,
+        sex,
+        age,
+        name,
+        visitId}=rDetail
         let list=this.state.costDetailsList
         // let id=this.state.payDemandNote.id?this.state.payDemandNote.id:0
         let obj={
@@ -211,11 +222,13 @@ class AddFeeDra extends React.Component {
             "id": '',
             "itemCode": item.itemCode,
             "itemName": item.itemName,
-            "patientId": "string",
+            "patientId": patientId,
             "payDemandId": '',
             "price": 0,
-            "visitId": "string"
+            "visitId": visitId
         }
+        list.push(obj)
+        this.setState({costDetailsList:list})
     }
     
     
@@ -310,7 +323,10 @@ class AddFeeDra extends React.Component {
                             <label >账单日期：</label>
                             <DatePicker 
                             value={payNoteDate==''?null:moment(new Date(payNoteDate))}
-                            onChange={(date,dateString)=>{this.setState({registrationDate:dateString})}}
+                            onChange={(date,dateString)=>{
+                                let obj=this.state.payDemandNote
+                                obj.payNoteDate=dateString
+                                this.setState({payDemandNote:obj})}}
 
                             />
                         </Col>
