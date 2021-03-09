@@ -343,7 +343,7 @@ class AddFeeDra extends React.Component {
                 <div className={'chooseFee'}>
                     <h2>收费项目</h2>
                     <div  style={{margin: '.5rem 0 1rem',height: 0,borderBottom: '1px dashed #dbdbdb'}}></div>
-                    <Tree>
+                    <Tree defaultExpandedKeys={['a','b']}>
                         <TreeNode title={'诊疗类'} key={'a'}>
                         {
                                 diagnosisVoList?.map(val=>{
