@@ -75,7 +75,7 @@ class AddFeeDra extends React.Component {
                 "visitId": visitId
               },
               callback:res=>{
-                  if(res.success){
+                  if(res.success&&res.result.costDetailsList){
                       this.setState({
                         payDemandNote:res.result.payDemandNote,
                         costDetailsList:res.result.costDetailsList,
@@ -108,7 +108,18 @@ class AddFeeDra extends React.Component {
         },{
             title:'数量',
             key:'amount',
-            dataIndex:'amount'
+            dataIndex:'amount',
+            render:(text,record,index)=>{
+                return <Input value={record.amount} onChange={e=>{
+                    let amount=parseFloat(e.target.value)
+                    let arr=this.state.costDetailsList
+                    arr[index].amount=isNaN(amount)?'':amount
+                    this.setState({costDetailsList:arr})
+                    // if(){return}
+                }}>
+
+                </Input>
+            }
         },{
             title:'单价',
             key:'price',
@@ -117,6 +128,21 @@ class AddFeeDra extends React.Component {
             title:'折扣率（%）',
             key:'discountRate',
             dataIndex:'discountRate',
+            render:(text,record,index)=>{
+                return <Input value={record.discountRate} onChange={e=>{
+                    let discountRate=parseFloat(e.target.value)
+                    let arr=this.state.costDetailsList
+                    arr[index].discountRate=isNaN(discountRate)?'':discountRate
+                    if(!isNaN(discountRate)){
+                        arr[index].discountPrice=parseFloat(arr[index].price)*arr[index].discountRate/100
+                    }
+                    this.setState({costDetailsList:arr})
+
+                    // if(){return}
+                }}>
+
+                </Input>
+            }
 
         },{
             title:'折后单价',
@@ -125,7 +151,16 @@ class AddFeeDra extends React.Component {
         },{
             title:'操作',
             key:'cz',
-            dataIndex:'cz'
+            dataIndex:'cz',
+            render:(text,record,index)=>{
+                return <div>
+                    <a onClick={()=>{
+                        let arr=this.state.costDetailsList
+                        arr.splice(index,1)
+                        this.setState({costDetailsList:arr})
+                    }} style={{color:'red'}}>删除</a>
+                </div>
+            }
         },
     ]
     
@@ -224,7 +259,7 @@ class AddFeeDra extends React.Component {
             "itemName": item.itemName,
             "patientId": patientId,
             "payDemandId": '',
-            "price": 0,
+            "price": item.price,
             "visitId": visitId
         }
         list.push(obj)
@@ -337,6 +372,7 @@ class AddFeeDra extends React.Component {
                     <Table
                        columns={this.columns}
                        dataSource={this.state.costDetailsList}
+                       pagination={false}
                     ></Table>
 
                 </div>

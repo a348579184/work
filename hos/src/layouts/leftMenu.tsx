@@ -85,6 +85,11 @@ class LeftMenu extends React.Component {
                                   <span>员工管理</span>
                                 </Link>
                               </Menu.Item>
+                              <Menu.Item key="/BasicSettings/PatientManage">
+                                <Link to="/BasicSettings/PatientManage">
+                                  <span>患者管理</span>
+                                </Link>
+                              </Menu.Item>
                               <Menu.Item key="/BasicSettings/FeeItem">
                                 <Link to="/BasicSettings/FeeItem">
                                   <span>收费项目</span>
