@@ -74,8 +74,8 @@ class TodayResearch extends React.Component {
         },{
             title:'手机号',
             width:120,
-            key:'tel',
-            dataIndex:'tel',
+            key:'phone',
+            dataIndex:'phone',
             ellipsis: true
         },{
             title:'医生',

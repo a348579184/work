@@ -119,7 +119,7 @@ class CreateRegister extends React.Component {
         let obj=option.props.item
         this.setState({patientDetail:obj})
         this.props.form.setFieldsValue({
-            phone: obj.phone,patientId:obj.patientId,sex:obj.sex,
+            phone: obj.phone,patientId:obj.patientId,sex:obj.sex,age:obj.age
           });
         
     }

@@ -8,7 +8,7 @@
 import React, { Fragment } from 'react';
 import router from 'umi/router';
 import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox,Popconfirm } from 'antd';
-import CreateDra from '@/containers/StaffManagement/CreateDra'
+import PatientDetail from '@/containers/PatientManage/PatientDetail';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'dva';
@@ -88,7 +88,7 @@ class PatientManage extends React.Component {
                                 <Button type='primary' onClick={this.search}> 查询</Button>
                             </div>
                         </div>
-                    
+                        <PatientDetail/>
                         <div className={'cardContent'}>
                             {
                                 patientList.map(val=>{

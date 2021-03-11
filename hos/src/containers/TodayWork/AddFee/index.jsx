@@ -288,7 +288,7 @@ class AddFeeDra extends React.Component {
                 <div style={{display:'flex',justifyContent:'space-between',width:'calc(90vw)'}}>
                     <p>填写收费单</p>
                     <div style={{position:'relative',top:-4}} >
-                        <Button type="primary" icon={'printer'} style={{marginRight:10}} >打印</Button>
+                        {/* <Button type="primary" icon={'printer'} style={{marginRight:10}} >打印</Button> */}
                         <Button type="primary" onClick={this.save}>保存</Button>
                         
                     </div>
