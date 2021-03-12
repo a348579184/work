@@ -10,7 +10,8 @@ const { patientMaster_getpatientId,patientMaster_savePatientMaster,
     registrationMaster_saveRegistrationMaster,registrationMaster_getHeadline,
     registrationMaster_getRegistrationById,registrationMaster_updateRegistrationStatus,
     caseHistory_saveOrUpdateCaseHistory,caseHistory_getCaseHistoryById,classDict_getMenuList,
-    payDemandNote_getPayDemandNote,payDemandNote_saveOrUpdatePayDemandNote
+    payDemandNote_getPayDemandNote,payDemandNote_saveOrUpdatePayDemandNote,
+    registrationMaster_getRegistrationByPatientId
 } = api;
 
 
@@ -82,6 +83,10 @@ export default {
     },
 
     effects: {
+        *registrationMaster_getRegistrationByPatientId({ payload,callback}, { call, put }){
+            let res=yield call(registrationMaster_getRegistrationByPatientId,payload)
+            callback(res)
+        },
         *payDemandNote_saveOrUpdatePayDemandNote({ payload,callback}, { call, put }){
             let res=yield call(payDemandNote_saveOrUpdatePayDemandNote,payload)
             callback(res)

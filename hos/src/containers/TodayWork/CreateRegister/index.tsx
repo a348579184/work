@@ -82,6 +82,12 @@ class CreateRegister extends React.Component {
                           obj.registrationDoctor=val.userName
                       }
                   })
+                  let list=[]
+                  obj.tagDictList.map(val=>{
+                    list.push(JSON.parse(val))
+                  })
+                  obj.clinicTagId=list
+                  
                   dispatch({
                       type:'today/registrationMaster_saveRegistrationMaster',
                       payload:obj,
@@ -277,7 +283,7 @@ class CreateRegister extends React.Component {
                             >
                                 {
                                     this.props.itemSetting.itemList.map(val=>{
-                                        return <Option key={val.id}>
+                                        return <Option key={JSON.stringify(val)}>
                                             {val.titalName}
                                         </Option>
                                     })

@@ -17,7 +17,8 @@ const platform = {
   registrationMaster_updateRegistrationStatus:`POST /api/registrationMaster/updateRegistrationStatus`,
   classDict_getMenuList:`POST /api/classDict/getMenuList`,
   payDemandNote_getPayDemandNote:`POST /api/payDemandNote/getPayDemandNote`,
-  payDemandNote_saveOrUpdatePayDemandNote:`POST /api/payDemandNote/saveOrUpdatePayDemandNote`
+  payDemandNote_saveOrUpdatePayDemandNote:`POST /api/payDemandNote/saveOrUpdatePayDemandNote`,
+  registrationMaster_getRegistrationByPatientId:`POST /api/registrationMaster/getRegistrationByPatientId`,
 }
 
 const APIFunction = {}

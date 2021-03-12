@@ -24,7 +24,7 @@ const { Search } = Input;
 const { Option } = Select;
 
 @withRouter
-@connect(({ loading,  staffManagement,today}) => ({ loading, staffManagement,today}))
+@connect(({ loading,  staffManagement,today,patient}) => ({ patient,loading, staffManagement,today}))
 class PatientManage extends React.Component {
     constructor(props) {
         super(props);
@@ -45,6 +45,17 @@ class PatientManage extends React.Component {
                 hospCode:sessionStorage.getItem('hospCode')
             },
         })
+    }
+    clickCard=(val)=>{
+        const {dispatch}=this.props
+        dispatch({
+            type:'patient/showChange',
+            payload:{
+                show:true,
+                detail:val
+            }
+        })
+
     }
     
     
@@ -88,11 +99,14 @@ class PatientManage extends React.Component {
                                 <Button type='primary' onClick={this.search}> 查询</Button>
                             </div>
                         </div>
-                        <PatientDetail/>
+                        {
+                            this.props.patient.show.show?<PatientDetail/>:''
+                        }
+                        
                         <div className={'cardContent'}>
                             {
                                 patientList.map(val=>{
-                                    return <div className={'card'}>
+                                    return <div className={'card'} onClick={()=>this.clickCard(val)}>
                                         <h2>{val.name}</h2>
                                         <div>
                                             {val.sex==1?'男':'女'}

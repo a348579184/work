@@ -71,7 +71,12 @@ class CreateDra extends React.Component {
                     if(val.id==obj.clinicDoctorCode){
                         obj.clinicDoctorName=val.userName
                     }
-                })
+                  })
+                  let list=[]
+                  obj.tagDictList.map(val=>{
+                    list.push(JSON.parse(val))
+                  })
+                  obj.tagDictList=list
                   dispatch({
                       type:'today/patientMaster_savePatientMaster',
                       payload:obj,
@@ -226,7 +231,7 @@ class CreateDra extends React.Component {
                             <Select mode="multiple">
                                 {
                                     this.props.today.tagList.filter(val=>val.tagCode!='').map(val=>{
-                                        return <Option key={val.tagCode}>
+                                        return <Option key={JSON.stringify(val)}>
                                             {val.tagName}
                                         </Option>
                                     })
