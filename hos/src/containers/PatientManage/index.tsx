@@ -12,6 +12,7 @@ import PatientDetail from '@/containers/PatientManage/PatientDetail';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import MedicalRecord from '@/containers/PatientManage/MedicalRecord';
+import AddFee from '@/containers/PatientManage/AddFee';
 import { connect } from 'dva';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
@@ -92,6 +93,7 @@ class PatientManage extends React.Component {
                     </div>
                 </div>
                 {this.props.patient.mvisible?<MedicalRecord/>:''}
+                {this.props.patient.fvisible?<AddFee/>:''}
                 {/* {this.props.today.fvisible?<AddFee closeModal={this.fDraClose}/>:''}  */}
                 {/* 搜索框包裹内容 */}
                 <div className="research-body-content">

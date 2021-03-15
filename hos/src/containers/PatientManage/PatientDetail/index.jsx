@@ -49,7 +49,28 @@ class CreateRegister extends React.Component {
                 })
             }
         })
+        dispatch({
+            type:'patient/costDetails_getCostDetailsList',
+            payload:{
+                "hospCode": sessionStorage.getItem('hospCode'),
+                "patientId": this.props.patient.show.detail.patientId
+            }
+        })
     }
+    feeColumns=[
+        {
+            title:'序号',
+            dataIndex:'xh',
+            key:'xh',
+            // width:80,
+            render:(text,record,index)=>index+1
+        },
+        {
+            title:'就诊日期',
+            dataIndex:'payNoteDate',
+            key:'payNoteDate'
+        },
+    ]
     visitColumns=[
         {
             title:'序号',
@@ -110,11 +131,29 @@ class CreateRegister extends React.Component {
             payload:true
         })
     }
+    feeClick=async (record,index)=>{
+        const {dispatch,patient}=this.props
+        dispatch({
+            type:'patient/showChange',
+            payload:{
+                ...patient.show,
+                show:false
+            }
+        })
+        await dispatch({
+            type:'patient/feeDetailSet',
+            payload:this.props.patient.allFeeList[index]
+        })
+        dispatch({
+            type:'patient/fvisibleChange',
+            payload:true
+        })
+    }
     
 
 
     render() {
-        const {visitList,show}=this.props.patient
+        const {visitList,show,feeList}=this.props.patient
         
         
         return (
@@ -171,7 +210,19 @@ class CreateRegister extends React.Component {
                         </Table>
                     </TabPane>
                     <TabPane tab="付款结算" key="2">
-                    Content of Tab Pane 2
+                    <Table
+                          columns={this.feeColumns}
+                          dataSource={feeList}
+                          onRow={(record,index)=>{
+                              return {
+                                  onClick:()=>{
+                                      this.feeClick(record,index)
+                                  }
+                              }
+                          }}
+                        >
+
+                        </Table>
                     </TabPane>
                     
                 </Tabs>
