@@ -92,6 +92,24 @@ class CreateRegister extends React.Component {
             payload:''
         })
     }
+    medicalClick=async (record)=>{
+        const {dispatch,patient}=this.props
+        dispatch({
+            type:'patient/showChange',
+            payload:{
+                ...patient.show,
+                show:false
+            }
+        })
+        await dispatch({
+            type:'patient/rDetailSet',
+            payload:record
+        })
+        dispatch({
+            type:'patient/mvisibleChange',
+            payload:true
+        })
+    }
     
 
 
@@ -144,7 +162,7 @@ class CreateRegister extends React.Component {
                           onRow={(record)=>{
                               return {
                                   onClick:()=>{
-
+                                      this.medicalClick(record)
                                   }
                               }
                           }}

@@ -55,7 +55,7 @@ class CreateRegister extends React.Component {
                     "clinicDate": detail?.clinicDate,
                     "clinicDoctor": detail?.clinicDoctor,
                     "clinicState": detail?.clinicState,
-                    "clinicTag": detail?.clinicTag,
+                    "clinicTag": values.clinicTag,
                     "clinicTagId": "",
                     "clinicType": 0,
                     "id": 0,
@@ -83,10 +83,10 @@ class CreateRegister extends React.Component {
                       }
                   })
                   let list=[]
-                  obj.tagDictList.map(val=>{
+                  obj.clinicTag.map(val=>{
                     list.push(JSON.parse(val))
                   })
-                  obj.clinicTagId=list
+                  obj.clinicTag=list
                   
                   dispatch({
                       type:'today/registrationMaster_saveRegistrationMaster',
@@ -272,7 +272,7 @@ class CreateRegister extends React.Component {
                     </Form.Item>
 
                     <Form.Item label="就诊事项">
-                        {getFieldDecorator('tagDictList', {
+                        {getFieldDecorator('clinicTag', {
                             initialValue:[],
                         })(
                             <Select 

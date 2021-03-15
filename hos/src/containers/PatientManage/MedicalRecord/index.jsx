@@ -25,7 +25,7 @@ const { Option } = Select;
 
 @Form.create()
 @withRouter
-@connect(({ loading,  staffManagement,today,itemSetting}) => ({ loading, staffManagement,today,itemSetting}))
+@connect(({ loading,  staffManagement,today,itemSetting,patient}) => ({ loading, staffManagement,today,itemSetting,patient}))
 class CreateRegister extends React.Component {
     constructor(props) {
         super(props);
@@ -41,7 +41,7 @@ class CreateRegister extends React.Component {
     }
     componentDidMount(){
         const {dispatch}=this.props
-        const {rDetail}=this.props.today
+        const {rDetail}=this.props.patient
         const {
         registrationDoctor,
         registrationDoctorCode,
@@ -61,7 +61,7 @@ class CreateRegister extends React.Component {
               callback:res=>{
                   if(res.success){
                       
-                      
+                    res.result.toothLocation=JSON.parse(res.result.toothLocation)
                       this.setState({...this.state,...res.result})
                   }else{
                     this.setState({
@@ -76,38 +76,29 @@ class CreateRegister extends React.Component {
     }
     
     closeModal=()=>{
-        this.props.closeModal()
+        
         
     }
-    change=(e)=>{
-        const {dispatch}=this.props
-        const {rDetail}=this.props.today
+    
+    onClose=()=>{
+        // this.props.closeModal()
+        const {dispatch,patient}=this.props
         dispatch({
-            type:'today/registrationMaster_updateRegistrationStatus',
+            type:'patient/showChange',
             payload:{
-                "clinicState": e,
-                "hospCode": rDetail.hospCode,
-                "patientId": rDetail.patientId,
-                "visitId": rDetail.visitId
-            },
-            callback:res=>{
-                if(res.success){
-                    message.success('修改状态成功！')
-                    dispatch({
-                        type:'today/registrationMaster_getRegistrationById',
-                        payload:{
-                            "hospCode": rDetail.hospCode,
-                            "patientId": rDetail.patientId,
-                            "visitId": rDetail.visitId
-                        },
-                    })
-                    this.props.search()
-                }
+                ...patient.show,
+                show:true
             }
         })
-    }
-    onClose=()=>{
-        this.props.closeModal()
+        dispatch({
+            type:'patient/rDetailSet',
+            payload:{}
+        })
+        dispatch({
+            type:'patient/mvisibleChange',
+            payload:false
+        })
+
     }
     openm=()=>{
         const {dispatch}=this.props
@@ -131,7 +122,7 @@ class CreateRegister extends React.Component {
         const {dispatch}=this.props
         let obj=this.state
         obj.toothLocation=JSON.stringify(obj.toothLocation)
-        obj.visitId=this.props.today.rDetail.visitId
+        obj.visitId=this.props.patient.rDetail.visitId
         obj.hospCode=sessionStorage.getItem('hospCode')
         dispatch({
             type:'today/caseHistory_saveOrUpdateCaseHistory',
@@ -168,7 +159,6 @@ class CreateRegister extends React.Component {
             inspectionReport,rayExamination,diagnose,treatment,doctorAdvice,treatPlan
             
         }=this.state
-        console.log(this.state)
         
         
         return (
@@ -187,7 +177,7 @@ class CreateRegister extends React.Component {
             
             closable={true}
             onClose={this.onClose}
-            visible={this.props.today.mvisible}
+            visible={this.props.patient.mvisible}
             // visible={true}
             width={'100%'}
             bodyStyle={{padding:0,display:'flex',alignItems:'center',justifyContent:'center',
@@ -218,8 +208,8 @@ class CreateRegister extends React.Component {
                         </Col>
                         <Col span={6}>
                         <Radio.Group  buttonStyle="solid" value={clinicType} onChange={e=>this.setState({clinicType:e.target.value})}>
-                            <Radio.Button value={1}>初诊</Radio.Button>
-                            <Radio.Button value={2}>复诊</Radio.Button>
+                            <Radio.Button value={'1'}>初诊</Radio.Button>
+                            <Radio.Button value={'2'}>复诊</Radio.Button>
                         </Radio.Group>
                         </Col>
 

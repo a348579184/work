@@ -25,6 +25,9 @@ export default {
             detail:{}
         },
         visitList:[],
+        mvisible:false,
+        fvisible:false,
+        rDetail:{}
     },
 
     effects: {
@@ -44,6 +47,18 @@ export default {
             return {
                 ...state,
                 show:action.payload
+            }
+        },
+        mvisibleChange(state,action){
+            return {
+                ...state,
+                mvisible:action.payload
+            }
+        },
+        rDetailSet(state,action){
+            return {
+                ...state,
+                rDetail:action.payload
             }
         },
         

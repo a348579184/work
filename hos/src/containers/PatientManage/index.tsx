@@ -11,6 +11,7 @@ import { Select, Input, Button, Table, message, DatePicker, Spin, Checkbox,Popco
 import PatientDetail from '@/containers/PatientManage/PatientDetail';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import MedicalRecord from '@/containers/PatientManage/MedicalRecord';
 import { connect } from 'dva';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
@@ -35,6 +36,15 @@ class PatientManage extends React.Component {
     
     componentDidMount(){
         this.search()
+        const {dispatch}=this.props
+        dispatch({
+            type:'staffManagement/staffDict_getStaffDict',
+            payload:{
+                status:'',
+                input:'',
+                hospCode:sessionStorage.getItem('hospCode')
+            }
+        })
     }
     search=()=>{
         this.props.dispatch({
@@ -81,6 +91,8 @@ class PatientManage extends React.Component {
                         {/* <Button type='primary' onClick={this.createStaff}>新增员工</Button> */}
                     </div>
                 </div>
+                {this.props.patient.mvisible?<MedicalRecord/>:''}
+                {/* {this.props.today.fvisible?<AddFee closeModal={this.fDraClose}/>:''}  */}
                 {/* 搜索框包裹内容 */}
                 <div className="research-body-content">
                     {/* 主体 */}

@@ -61,7 +61,7 @@ class CreateRegister extends React.Component {
               callback:res=>{
                   if(res.success){
                       
-                      
+                      res.result.toothLocation=JSON.parse(res.result.toothLocation)
                       this.setState({...this.state,...res.result})
                   }else{
                     this.setState({

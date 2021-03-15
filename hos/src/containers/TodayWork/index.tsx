@@ -93,14 +93,14 @@ class TodayResearch extends React.Component {
         },{
             title:'就诊事项',
             width:100,
-            key:'updateName',
-            dataIndex:'updateName',
+            key:'clinicTag',
+            dataIndex:'clinicTag',
             ellipsis: true,
             render:text=>{
-                if(text!=''&&text!=null){
-                    text=JSON.parse(text)
-                    text=text.join(';')
-                }
+                let str=''
+                text=JSON.parse(text)
+                text.map(val=>str=str+'  '+val.titalName)
+                return str
             }
         },{
             title:'时间',
